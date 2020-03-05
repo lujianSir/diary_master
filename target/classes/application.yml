@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/diary?useUnicode=true&characterEncoding=utf8
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+
+mybatis:
+ configuration:
+    logImpl: org.apache.ibatis.logging.stdout.StdOutImpl
+ mapper-locations: classpath:mapping/*Mapper.xml
+ type-aliases-package: com.bwsk.entity
+
