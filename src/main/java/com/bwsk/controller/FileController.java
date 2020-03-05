@@ -1,0 +1,34 @@
+package com.bwsk.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.bwsk.service.FileService;
+import com.bwsk.util.Result;
+
+/**
+ * 用户相关的接口
+ * 
+ * @author lujian
+ *
+ */
+@Controller
+@RequestMapping("/file")
+public class FileController {
+
+	@Autowired
+	private FileService fileService;
+
+	/**
+	 * 实现文件上传
+	 */
+	@RequestMapping("/upload")
+	@ResponseBody
+	public Result<?> fileUpload(MultipartFile file, int kind) {
+		return fileService.fileUpload(file, kind);
+	}
+
+}
