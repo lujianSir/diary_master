@@ -34,7 +34,7 @@ public class ProjectController {
 	public Result<?> insertOrUpdateProject(Project project) {
 		project.setPname("赤壁项目");
 		project.setPabbreviation("赤壁");
-		project.setPnumber("21321412");
+		project.setPnumber("21321");
 		project.setPaddress("湖北崇赤壁");
 		project.setPstatus(2);
 		project.setCid(5);
