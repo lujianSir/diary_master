@@ -22,6 +22,11 @@ public class FileController {
 	@Autowired
 	private FileService fileService;
 
+	@RequestMapping("/test")
+	public String test() {
+		return "ceshi";
+	}
+
 	/**
 	 * 实现文件上传
 	 */

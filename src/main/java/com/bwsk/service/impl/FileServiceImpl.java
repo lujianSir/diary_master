@@ -53,7 +53,7 @@ public class FileServiceImpl implements FileService {
 
 				// 录入文件信息
 				FileInfo fileinfo = new FileInfo();
-				fileinfo.setFname("11");
+				fileinfo.setFname(filename);
 				fileinfo.setFrealurl(filePath);
 				String fvirtualurl = "";
 				if (kind == 1) {// 视频
