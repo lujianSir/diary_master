@@ -73,4 +73,24 @@ public class FileServiceImpl implements FileService {
 		}
 	}
 
+	@Override
+	public Result<?> fileinfoDelete(String fvirtualurl) {
+		// TODO Auto-generated method stub
+		try {
+			FileInfo fileinfo = new FileInfo();
+			// 根据名称查询数据,获取文件路径
+			fileinfo = fileMapper.queryFileInfoByName(fvirtualurl);
+			// 删除文件
+			File file = new File(fileinfo.getFrealurl());
+			if (file.exists()) {
+				file.delete();
+			}
+			// 删除记录
+			fileMapper.deleteFileInfoById(fileinfo.getFid());
+			return Result.success();
+		} catch (Exception e) {
+			return Result.error(500, "服务端错误");
+		}
+	}
+
 }

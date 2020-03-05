@@ -37,4 +37,14 @@
    		</trim>
    </insert>
    
+   <!-- 通过name查询 -->
+   <select id="queryFileInfoByName" resultType="com.bwsk.entity.FileInfo">
+   		select * from fileinfo where fvirtualurl=#{fvirtualurl}
+   </select>
+   
+   <!-- 通过ID删除 -->
+   <delete id="deleteFileInfoById" parameterType="int">
+   		delete from fileinfo where fid=#{fid}
+   </delete>
+   
 </mapper>

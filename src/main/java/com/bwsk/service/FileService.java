@@ -8,4 +8,7 @@ public interface FileService {
 
 	// 文件信息上传
 	public Result<?> fileUpload(MultipartFile file, int kind);
+
+	// 根据虚拟路径删除文件
+	public Result<?> fileinfoDelete(String fvirtualurl);
 }

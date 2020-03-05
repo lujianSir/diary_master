@@ -8,7 +8,7 @@ package com.bwsk.entity;
  */
 public class FileInfo {
 
-	private String fid;// 文件的ID
+	private int fid;// 文件的ID
 
 	private String fname;// 文件的名称
 
@@ -18,11 +18,11 @@ public class FileInfo {
 
 	private String fuploadtime;// 文件上传的时间
 
-	public String getFid() {
+	public int getFid() {
 		return fid;
 	}
 
-	public void setFid(String fid) {
+	public void setFid(int fid) {
 		this.fid = fid;
 	}
 

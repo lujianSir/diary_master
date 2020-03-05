@@ -36,4 +36,12 @@ public class FileController {
 		return fileService.fileUpload(file, kind);
 	}
 
+	/**
+	 * 根据虚拟文件名称删除数据
+	 */
+	@RequestMapping("/delete")
+	@ResponseBody
+	public Result<?> fileinfoDelete(String fvirtualurl) {
+		return fileService.fileinfoDelete(fvirtualurl);
+	}
 }
