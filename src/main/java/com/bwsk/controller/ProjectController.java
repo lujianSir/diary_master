@@ -35,7 +35,7 @@ public class ProjectController {
 		project.setPname("赤壁项目");
 		project.setPabbreviation("赤壁");
 		project.setPnumber("21321");
-		project.setPaddress("湖北崇赤壁");
+		project.setPaddress("湖北崇赤11壁");
 		project.setPstatus(2);
 		project.setCid(5);
 		project.setPtype(3);
