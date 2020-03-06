@@ -4,54 +4,65 @@ import java.math.BigDecimal;
 
 /**
  * 日报实体
+ * 
  * @author lujian
  *
  */
 public class Daily {
 
-	private int did;//ID
-	
-	private int uid;//对应的用户ID
-	
-	private String username;//上报的人员名称
-	
-	private String uposition;//职位
-	
-	private String utelphone;//电话
-	
-	private int weather;//天气   1 晴 2阴 3 雨
-	
-	private int attendancetody;//今天出勤
-	
-	private int attendanceoneself;//本人出勤
-	
-	private int effectivework;//有效工作时间  1、(<2小时 )    2、(2-4小时)  3、(4-6小时)  4、(6-8小时)    5、(>8小时)
-	
-	private int satisfactiondegree;//满意度   1、(很不满意)  2、(不太满意)  3、(满意) 4、(比较满意) 5、(非常满意)
-	
-	private String equipments;//设备 (名称以及数量，以-分割比如：挖掘机-2，多个以；号分割：:挖掘机-2;钻头-1)
-	
-	private String workcomment;//工作内容
-	
-	private String abnorname;//异常情况
-	
-	private String dunning;//催款记录
-	
-	private String dunningpic;//催款记录对应的图片 ，以；号分割
-	
-	private BigDecimal amountody;//今日收款项
-	
-	private BigDecimal invoicetody;//今日发票 
-	
-	private String dpic;//项目附图
-	
-	private String dvoideo;//项目视频
-	
-	private String dtime;//日报提交的时间
-	
-	private int pid;//项目ID
-	
-	private String creattime;//创建的时间
+	private int did;// ID
+
+	private int uid;// 对应的用户ID
+
+	private String username;// 上报的人员名称
+
+	private String uposition;// 职位
+
+	private String utelphone;// 电话
+
+	private int weather;// 天气 1 晴 2阴 3 雨
+
+	private String weatherName;// 天气
+
+	private int attendancetody;// 今天出勤
+
+	private int attendanceoneself;// 本人出勤
+
+	private int effectivework;// 有效工作时间 1、(<2小时 ) 2、(2-4小时) 3、(4-6小时) 4、(6-8小时) 5、(>8小时)
+
+	private String effectiveworkName;
+
+	private int satisfactiondegree;// 满意度 1、(很不满意) 2、(不太满意) 3、(满意) 4、(比较满意) 5、(非常满意)
+
+	private String satisfactiondegreeName;
+
+	private String equipments;// 设备 (名称以及数量，以-分割比如：挖掘机-2，多个以；号分割：:挖掘机-2;钻头-1)
+
+	private String workcomment;// 工作内容
+
+	private String abnorname;// 异常情况
+
+	private String dunning;// 催款记录
+
+	private String dunningpic;// 催款记录对应的图片 ，以；号分割
+
+	private BigDecimal amountody;// 今日收款项
+
+	private BigDecimal invoicetody;// 今日发票
+
+	private String dpic;// 项目附图
+
+	private String dvoideo;// 项目视频
+
+	private String dtime;// 日报提交的时间
+
+	private int pid;// 项目ID
+
+	private String pname;// 项目名称
+
+	private String creattime;// 创建的时间
+
+	private int ustatus;// 用户是否提交
 
 	public int getDid() {
 		return did;
@@ -229,5 +240,44 @@ public class Daily {
 		this.creattime = creattime;
 	}
 
-	
- }
+	public String getWeatherName() {
+		return weatherName;
+	}
+
+	public void setWeatherName(String weatherName) {
+		this.weatherName = weatherName;
+	}
+
+	public String getEffectiveworkName() {
+		return effectiveworkName;
+	}
+
+	public void setEffectiveworkName(String effectiveworkName) {
+		this.effectiveworkName = effectiveworkName;
+	}
+
+	public String getSatisfactiondegreeName() {
+		return satisfactiondegreeName;
+	}
+
+	public void setSatisfactiondegreeName(String satisfactiondegreeName) {
+		this.satisfactiondegreeName = satisfactiondegreeName;
+	}
+
+	public String getPname() {
+		return pname;
+	}
+
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+
+	public int getUstatus() {
+		return ustatus;
+	}
+
+	public void setUstatus(int ustatus) {
+		this.ustatus = ustatus;
+	}
+
+}

@@ -2,25 +2,26 @@ package com.bwsk.entity;
 
 /**
  * 公司实体
+ * 
  * @author lujian
  *
  */
 public class Company {
 
-	private int cid;//ID
-	
-	private String cname;//公司名称
-	
-	private String cabbreviation;//公司简称
-	
-	private String weixin;//绑定微信
-	
-	private int uid;//用户ID
-	
-	private String username;//用户名称
-	
-	private String creattime;//创建的时间
-	
+	private int cid;// ID
+
+	private String cname;// 公司名称
+
+	private String cabbreviation;// 公司简称
+
+	private String weixin;// 绑定微信
+
+	private int uid;// 用户ID
+
+	private String username;// 用户名称
+
+	private String creattime;// 创建的时间
+
 	public int getCid() {
 		return cid;
 	}
@@ -76,6 +77,5 @@ public class Company {
 	public void setCreattime(String creattime) {
 		this.creattime = creattime;
 	}
-	
-	
+
 }

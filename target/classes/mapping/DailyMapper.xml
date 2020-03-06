@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bwsk.mapper.DailyMapper">
+ 	 <resultMap id="EveryDayResultMap" type="com.bwsk.entity.EveryDay">
+        <id property="dtime" column="dtime" />
+        <collection property="dailyList" resultMap="dailyResult" />
+    </resultMap>
+    
+    <resultMap id="ProjectResultMap" type="com.bwsk.entity.ProjectInfo">
+        <id property="pid" column="pid" />
+        <result property="pname" column="pname" />
+        <result property="weixin" column="weixin" />
+        <collection property="dailyList" resultMap="dailyResult" />
+    </resultMap>
+
+    <!-- goodsimage resultmap -->
+    <resultMap id="dailyResult" type="com.bwsk.entity.Daily">
+        <id property="did" column="did" />
+        <result property="uid" column="uid" />
+        <result property="ustatus" column="ustatus" />
+        <result property="username" column="username" />
+        <result property="uposition" column="uposition" />
+        <result property="utelphone" column="utelphone" />
+        <result property="weather" column="weather" />
+        <result property="weatherName" column="weatherName" />
+        <result property="attendancetody" column="attendancetody" />
+        <result property="attendanceoneself" column="attendanceoneself" />
+        <result property="effectivework" column="effectivework" />
+        <result property="effectiveworkName" column="effectiveworkName" />
+        <result property="satisfactiondegree" column="satisfactiondegree" />
+        <result property="satisfactiondegreeName" column="satisfactiondegreeName" />
+        <result property="equipments" column="equipments" />
+        <result property="workcomment" column="workcomment" />
+        <result property="abnorname" column="abnorname" />
+        <result property="dunningpic" column="dunningpic" />
+        <result property="amountody" column="amountody" />
+        <result property="invoicetody" column="invoicetody" />
+        <result property="dpic" column="dpic" />
+        <result property="dvoideo" column="dvoideo" />
+        <result property="dtime" column="dtime" />
+        <result property="pid" column="pid" />
+        <result property="creattime" column="creattime" />
+        <result property="pname" column="pname" />
+    </resultMap>
+ 
+ 
+ 
+   <!--添加日报  -->
+   <insert id="insertDaily" parameterType="com.bwsk.entity.Daily">
+   		insert into daily 
+   		<trim prefix="(" suffix=")" suffixOverrides=",">
+	   		<if test="uid != null and uid!=''">
+				uid,
+			</if>
+			<if test="username != null and username !=''">
+				username,
+			</if>
+			<if test="uposition != null and uposition !=''">
+				uposition,
+			</if>
+			<if test="utelphone != null and utelphone!=''">
+				utelphone,
+			</if>
+			<if test="weather != null and weather!=''">
+				weather,
+			</if>
+			<if test="attendancetody != null and attendancetody!=''">
+				attendancetody,
+			</if>
+			<if test="attendanceoneself != null and attendanceoneself!=''">
+				attendanceoneself,
+			</if>
+			<if test="effectivework != null and effectivework!=''">
+				effectivework,
+			</if>
+			<if test="satisfactiondegree != null and satisfactiondegree!=''">
+				satisfactiondegree,
+			</if>
+			<if test="equipments != null and equipments!=''">
+				equipments,
+			</if>
+			<if test="workcomment != null and workcomment!=''">
+				workcomment,
+			</if>
+			<if test="abnorname != null and abnorname!=''">
+				abnorname,
+			</if>
+			<if test="dunning != null and dunning!=''">
+				dunning,
+			</if>
+			<if test="dunningpic != null and dunningpic!=''">
+				dunningpic,
+			</if>
+			<if test="amountody != null and amountody!=''">
+				amountody,
+			</if>
+			<if test="invoicetody != null and invoicetody!=''">
+				invoicetody,
+			</if>
+			<if test="dpic != null and dpic!=''">
+				dpic,
+			</if>
+			<if test="dvoideo != null and dvoideo!=''">
+				dvoideo,
+			</if>
+			<if test="dtime != null and dtime!=''">
+				dtime,
+			</if>
+			<if test="pid != null and pid!=''">
+				pid,
+			</if>
+			<if test="creattime != null and creattime!=''">
+				creattime,
+			</if>
+   		</trim>
+   		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="uid != null and uid!=''">
+				#{uid},
+			</if>
+			<if test="username != null and username !=''">
+				#{username},
+			</if>
+			<if test="uposition != null and uposition !=''">
+				#{uposition},
+			</if>
+			<if test="utelphone != null and utelphone!=''">
+				#{utelphone},
+			</if>
+			<if test="weather != null and weather!=''">
+				#{weather},
+			</if>
+			<if test="attendancetody != null and attendancetody!=''">
+				#{attendancetody},
+			</if>
+			<if test="attendanceoneself != null and attendanceoneself!=''">
+				#{attendanceoneself},
+			</if>
+			<if test="effectivework != null and effectivework!=''">
+				#{effectivework},
+			</if>
+			<if test="satisfactiondegree != null and satisfactiondegree!=''">
+				#{satisfactiondegree},
+			</if>
+			<if test="equipments != null and equipments!=''">
+				#{equipments},
+			</if>
+			<if test="workcomment != null and workcomment!=''">
+				#{workcomment},
+			</if>
+			<if test="abnorname != null and abnorname!=''">
+				#{abnorname},
+			</if>
+			<if test="dunning != null and dunning!=''">
+				#{dunning},
+			</if>
+			<if test="dunningpic != null and dunningpic!=''">
+				#{dunningpic},
+			</if>
+			<if test="amountody != null and amountody!=''">
+				#{amountody},
+			</if>
+			<if test="invoicetody != null and invoicetody!=''">
+				#{invoicetody},
+			</if>
+			<if test="dpic != null and dpic!=''">
+				#{dpic},
+			</if>
+			<if test="dvoideo != null and dvoideo!=''">
+				#{dvoideo},
+			</if>
+			<if test="dtime != null and dtime!=''">
+				#{dtime},
+			</if>
+			<if test="pid != null and pid!=''">
+				#{pid},
+			</if>
+			<if test="creattime != null and creattime!=''">
+				#{creattime},
+			</if>
+   		</trim>
+   </insert>
+     
+   <!-- 修改日报 -->
+   <update id="updateDaily"  parameterType="com.bwsk.entity.Daily">
+   		update daily 
+   		<set>
+			<if test="uid != null and uid!=''">
+				uid=#{uid},
+			</if>
+			<if test="username != null and username !=''">
+				username=#{username},
+			</if>
+			<if test="uposition != null and uposition !=''">
+				uposition=#{uposition},
+			</if>
+			<if test="utelphone != null and utelphone!=''">
+				utelphone=#{utelphone},
+			</if>
+			<if test="weather != null and weather!=''">
+				weather=#{weather},
+			</if>
+			<if test="attendancetody != null and attendancetody!=''">
+				attendancetody=#{attendancetody},
+			</if>
+			<if test="attendanceoneself != null and attendanceoneself!=''">
+				attendanceoneself=#{attendanceoneself},
+			</if>
+			<if test="effectivework != null and effectivework!=''">
+				effectivework=#{effectivework},
+			</if>
+			<if test="satisfactiondegree != null and satisfactiondegree!=''">
+				satisfactiondegree=#{satisfactiondegree},
+			</if>
+			<if test="equipments != null and equipments!=''">
+				equipments=#{equipments},
+			</if>
+			<if test="workcomment != null and workcomment!=''">
+				workcomment=#{workcomment},
+			</if>
+			<if test="abnorname != null and abnorname!=''">
+				abnorname=#{abnorname},
+			</if>
+			<if test="dunning != null and dunning!=''">
+				dunning=#{dunning},
+			</if>
+			<if test="dunningpic != null and dunningpic!=''">
+				dunningpic=#{dunningpic},
+			</if>
+			<if test="amountody != null and amountody!=''">
+				amountody=#{amountody},
+			</if>
+			<if test="invoicetody != null and invoicetody!=''">
+				invoicetody=#{invoicetody},
+			</if>
+			<if test="dpic != null and dpic!=''">
+				dpic=#{dpic},
+			</if>
+			<if test="dvoideo != null and dvoideo!=''">
+				dvoideo=#{dvoideo},
+			</if>
+			<if test="dtime != null and dtime!=''">
+				dtime=#{dtime},
+			</if>
+			<if test="pid != null and pid!=''">
+				pid=#{pid},
+			</if>
+			<if test="creattime != null and creattime!=''">
+				creattime=#{creattime},
+			</if>
+   		
+   		</set>
+   			 where did=#{did}
+   </update>
+  	<!-- 多种条件查询 -->
+   <select id="queryDaily" parameterType="com.bwsk.entity.Daily" resultType="com.bwsk.entity.Daily">
+   	select
+		a.did,
+		a.uid,
+		a.username,
+		a.uposition,
+		a.utelphone,
+		a.weather,
+		CASE WHEN a.weather = 1 THEN '晴' WHEN a.weather = 2 THEN '阴' WHEN a.weather = 3 THEN '雨' ELSE '未知' END weatherName,
+		 a.attendancetody,
+		 a.attendanceoneself,
+		 a.effectivework,
+		 CASE WHEN a.effectivework = 1 THEN '小于2小时' WHEN a.effectivework = 2 THEN '2-4小时' WHEN a.effectivework = 3 THEN '4-6小时' WHEN a.effectivework = 4 THEN '6-8小时' ELSE '大于8小时' END effectiveworkName,
+		 a.satisfactiondegree,
+		 CASE WHEN a.satisfactiondegree = 1 THEN '很不满意' WHEN a.satisfactiondegree = 2 THEN	'不太满意' WHEN a.satisfactiondegree = 3 THEN	'满意' WHEN a.satisfactiondegree = 4 THEN	'比较满意'ELSE '非常满意'END satisfactiondegreeName,
+		 a.equipments,
+		 a.workcomment,
+		 a.abnorname,
+		 a.dunning,
+		 a.dunningpic,
+		 a.amountody,
+		 a.invoicetody,
+		 a.dpic,
+		 a.dvoideo,
+		 a.dtime,
+		 a.pid,
+		 a.creattime,
+		 b.pname
+		FROM
+			daily a
+		LEFT JOIN project b ON a.pid = b.pid
+		<where>
+			<if test="uid != null and uid != ''">
+	          and a.uid = #{uid}
+	       	 </if>
+	       	 <if test="dtime != null and dtime != ''">
+	          and a.dtime = #{dtime}
+	       	 </if>
+	       	 <if test="pid != null and pid != ''">
+	          and a.pid = #{pid}
+	       	 </if>
+	       	 <if test="username != null and username != ''">
+	          and a.username = #{username}
+	       	 </if>
+	       	  <if test="did != null and did != ''">
+	          and a.did = #{did}
+	       	 </if>
+		</where>
+		 order by a.creattime desc  
+   	</select>
+   	
+   	<!-- 按日期排序 -->
+   	<select id="queryEveryDay" resultMap="EveryDayResultMap">
+   		SELECT c.*,a.* from  everyday c LEFT JOIN (
+				select
+						a.did,
+						a.uid,
+						a.username,
+						a.uposition,
+						a.utelphone,
+						a.weather,
+						CASE WHEN a.weather = 1 THEN '晴' WHEN a.weather = 2 THEN '阴' WHEN a.weather = 3 THEN '雨'  END weatherName,
+					 a.attendancetody,
+					 a.attendanceoneself,
+					 a.effectivework,
+					 CASE WHEN a.effectivework = 1 THEN '小于2小时' WHEN a.effectivework = 2 THEN '2-4小时' WHEN a.effectivework = 3 THEN '4-6小时' WHEN a.effectivework = 4 THEN '6-8小时' WHEN a.effectivework = 5 THEN '大于8小时' END effectiveworkName,
+					 a.satisfactiondegree,
+					 CASE WHEN a.satisfactiondegree = 1 THEN '很不满意' WHEN a.satisfactiondegree = 2 THEN	'不太满意' WHEN a.satisfactiondegree = 3 THEN	'满意' WHEN a.satisfactiondegree = 4 THEN	'比较满意' WHEN a.satisfactiondegree = 5 THEN	'非常满意'END satisfactiondegreeName,
+					 a.equipments,
+					 a.workcomment,
+					 a.abnorname,
+					 a.dunning,
+					 a.dunningpic,
+					 a.amountody,
+					 a.invoicetody,
+					 a.dpic,
+					 a.dvoideo,
+					 a.dtime,
+					 a.pid,
+					 a.creattime,
+					 b.pname
+					 from daily a LEFT JOIN project b ON a.pid = b.pid   
+					 <where>
+					 	 <if test="pid != null and pid != ''">
+				          and a.pid = #{pid}
+				       	 </if>
+					 </where>
+
+				) a on c.dtime=a.dtime ORDER BY c.dtime desc
+
+   	</select>
+   	
+   	<select id="queryProject" resultMap="ProjectResultMap">
+   		select  a.pid,a.pname,a.weixin,b.* from project a
+		LEFT JOIN (
+			select
+				a.did,
+				a.uid,	
+				a.username,
+				a.uposition,
+				a.utelphone,
+				a.weather,
+				CASE WHEN a.weather = 1 THEN '晴' WHEN a.weather = 2 THEN '阴' WHEN a.weather = 3 THEN '雨' ELSE '未知' END weatherName,
+				 a.attendancetody,
+				 a.attendanceoneself,
+				 a.effectivework,
+				 CASE WHEN a.effectivework = 1 THEN '小于2小时' WHEN a.effectivework = 2 THEN '2-4小时' WHEN a.effectivework = 3 THEN '4-6小时' WHEN a.effectivework = 4 THEN '6-8小时' ELSE '大于8小时' END effectiveworkName,
+				 a.satisfactiondegree,
+				 CASE WHEN a.satisfactiondegree = 1 THEN '很不满意' WHEN a.satisfactiondegree = 2 THEN	'不太满意' WHEN a.satisfactiondegree = 3 THEN	'满意' WHEN a.satisfactiondegree = 4 THEN	'比较满意'ELSE '非常满意'END satisfactiondegreeName,
+				 a.equipments,
+				 a.workcomment,
+				 a.abnorname,
+				 a.dunning,
+				 a.dunningpic,
+				 a.amountody,
+				 a.invoicetody,
+				 a.dpic,
+				 a.dvoideo,
+				 a.dtime,
+				 a.pid,
+				 a.creattime,
+				 b.pname,
+				 b.weixin
+				FROM
+					daily a
+				LEFT JOIN project b ON a.pid = b.pid  where a.dtime	=#{dtime} 
+				 order by b.creattime desc    
+				) b on a.pid=b.pid LEFT JOIN projectuser c on a.pid=c.pid 
+				where c.uid=#{uid}	ORDER BY a.creattime desc
+   	</select>
+</mapper>

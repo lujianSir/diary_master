@@ -4,55 +4,56 @@ import java.math.BigDecimal;
 
 /**
  * 项目实体
+ * 
  * @author lujian
  *
  */
 public class Project {
 
-	private int pid;//id
-	
-	private String pname;//项目名称
-	
-	private String pabbreviation;//项目简称
-	
-	private String pnumber;//项目编号
-	
-	private String paddress;//项目地址
-	
-	private int pstatus;//项目状态   1 进行  2 未开工  3.已完工
-	
-	private String pstatusName;//项目名称
-	
-	private String pcompany;//公司名称
-	
-	private int cid;//公司ID
-	
-	private int ptype;// 1 工程项目  2 部门项目  3个人项目
-	
-	private String ptypeName;//工程名称
-	
-	private BigDecimal contractamount;//合同金额
-	
-	private BigDecimal acceptedamount;//已收款项
-	
-	private BigDecimal acceptedinvoice;//已开发票
-	
-	private int totalartificial;//累计人工
-	
-	private String approachDay;//进场时间
-	
-	private String completeDay;//竣工时间
-	
-	private String paycondition;//付款条件
-	
-	private String fineremarks;//罚款备注
-	
-	private String creattime;//创建的时间
+	private int pid;// id
 
-	private int uid;//创建的人
-	
-	private String weixin;//项目绑定的微信ID
-	
+	private String pname;// 项目名称
+
+	private String pabbreviation;// 项目简称
+
+	private String pnumber;// 项目编号
+
+	private String paddress;// 项目地址
+
+	private int pstatus;// 项目状态 1 进行 2 未开工 3.已完工
+
+	private String pstatusName;// 项目名称
+
+	private String pcompany;// 公司名称
+
+	private int cid;// 公司ID
+
+	private int ptype;// 1 工程项目 2 部门项目 3个人项目
+
+	private String ptypeName;// 工程名称
+
+	private BigDecimal contractamount;// 合同金额
+
+	private BigDecimal acceptedamount;// 已收款项
+
+	private BigDecimal acceptedinvoice;// 已开发票
+
+	private int totalartificial;// 累计人工
+
+	private String approachDay;// 进场时间
+
+	private String completeDay;// 竣工时间
+
+	private String paycondition;// 付款条件
+
+	private String fineremarks;// 罚款备注
+
+	private String creattime;// 创建的时间
+
+	private int uid;// 创建的人
+
+	private String weixin;// 项目绑定的微信ID
+
 	public int getPid() {
 		return pid;
 	}
@@ -228,6 +229,5 @@ public class Project {
 	public void setPtypeName(String ptypeName) {
 		this.ptypeName = ptypeName;
 	}
-		
-	
- }
+
+}
