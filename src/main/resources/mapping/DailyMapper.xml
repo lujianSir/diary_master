@@ -6,6 +6,20 @@
         <collection property="dailyList" resultMap="dailyResult" />
     </resultMap>
     
+     <resultMap id="EveryDayMonthResultMap" type="com.bwsk.entity.EveryDay">
+        <id property="creatMouth" column="creatMouth" />
+        <collection property="dailyList" resultMap="dailyMonthResult" />
+    </resultMap>
+    
+     <!-- goodsimage resultmap -->
+    <resultMap id="dailyMonthResult" type="com.bwsk.entity.Daily">
+        <id property="did" column="did" />       
+        <result property="dunningpic" column="dunningpic" />
+        <result property="dpic" column="dpic" />
+        <result property="dvoideo" column="dvoideo" /> 
+        <result property="creatMouth" column="creatMouth" />      
+    </resultMap>
+        
     <resultMap id="ProjectResultMap" type="com.bwsk.entity.ProjectInfo">
         <id property="pid" column="pid" />
         <result property="pname" column="pname" />
@@ -409,4 +423,55 @@
    	<insert id="insertEveryDay" parameterType="com.bwsk.entity.EveryDay">
    		insert into everyday (dtime,creatMouth) values (#{dtime},#{creatMouth})  	
    	</insert>
+   	
+   		<!-- 通过当前项目下面所有天数下面所有的日报 -->
+   	<select id="queryEveryDayByMonth" resultMap="EveryDayMonthResultMap">
+   		SELECT c.*,a.* from  everyday c LEFT JOIN (
+				select
+						a.did,
+						a.uid,
+						a.username,
+						a.uposition,
+						a.utelphone,
+						a.weather,
+						CASE WHEN a.weather = 1 THEN '晴' WHEN a.weather = 2 THEN '阴' WHEN a.weather = 3 THEN '雨'  END weatherName,
+					 a.attendancetody,
+					 a.attendanceoneself,
+					 a.effectivework,
+					 CASE WHEN a.effectivework = 1 THEN '小于2小时' WHEN a.effectivework = 2 THEN '2-4小时' WHEN a.effectivework = 3 THEN '4-6小时' WHEN a.effectivework = 4 THEN '6-8小时' WHEN a.effectivework = 5 THEN '大于8小时' END effectiveworkName,
+					 a.satisfactiondegree,
+					 CASE WHEN a.satisfactiondegree = 1 THEN '很不满意' WHEN a.satisfactiondegree = 2 THEN	'不太满意' WHEN a.satisfactiondegree = 3 THEN	'满意' WHEN a.satisfactiondegree = 4 THEN	'比较满意' WHEN a.satisfactiondegree = 5 THEN	'非常满意'END satisfactiondegreeName,
+					 a.equipments,
+					 a.workcomment,
+					 a.abnorname,
+					 a.dunning,
+					 a.dunningpic,
+					 a.amountody,
+					 a.invoicetody,
+					 a.dpic,
+					 a.dvoideo,
+					 a.dtime,
+					 a.pid,
+					 a.creattime,
+					 a.creatMouth,
+					 b.pname
+					 from daily a LEFT JOIN project b ON a.pid = b.pid   
+					 <where>
+					 	 <if test="daily.pid != null and daily.pid != ''">
+				          and a.pid = #{daily.pid}
+				       	 </if>
+					 </where>
+
+				) a on c.creatMouth=a.creatMouth
+				<where>
+					<if test="creatMouths!=null and creatMouths !=''">
+						c.creatMouth in
+						<foreach collection="creatMouths" item="creatMouth" open="("
+							separator="," close=")">
+							#{creatMouth}
+						</foreach>
+					</if>
+				</where>
+				 ORDER BY c.dtime desc			
+   	</select>
 </mapper>

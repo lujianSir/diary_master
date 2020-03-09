@@ -114,4 +114,25 @@ public class DailyController {
 			return Result.error(500, "服务端错误");
 		}
 	}
+
+	/**
+	 * 查询每个月的照片以及视频
+	 * 
+	 * @param daily
+	 * @param dtime
+	 * @return
+	 */
+	@RequestMapping("/queryEveryDayByMonth")
+	public Result<?> queryEveryDayByMonth(Daily daily, String creatMouth) {
+		String[] creatMouths = null;
+		if (creatMouth != null && !creatMouth.equals("")) {
+			creatMouths = creatMouth.split(";");
+		}
+		List<EveryDay> list = dailyService.queryEveryDayByMonth(daily, creatMouths);
+		if (list != null && list.size() > 0) {
+			return Result.success(list);
+		} else {
+			return Result.error(500, "服务端错误");
+		}
+	}
 }

@@ -85,4 +85,17 @@ public class DailyServiceImpl implements DailyService {
 		return dailyMapper.insertEveryDay(everyDay);
 	}
 
+	@Override
+	public List<EveryDay> queryEveryDayByMonth(Daily daily, String[] creatMouths) {
+		// TODO Auto-generated method stub
+		List<EveryDay> everyDays = dailyMapper.queryEveryDayByMonth(daily, creatMouths);
+		for (EveryDay everyDay : everyDays) {
+			List<Daily> dailyList = everyDay.getDailyList();
+			if (dailyList.get(0).getDid() == 0) {
+				dailyList.clear();
+			}
+		}
+		return everyDays;
+	}
+
 }
