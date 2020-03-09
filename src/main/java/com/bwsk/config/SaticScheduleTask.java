@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import com.bwsk.entity.EveryDay;
 import com.bwsk.service.DailyService;
 import com.bwsk.util.Utils;
 
@@ -20,7 +21,11 @@ public class SaticScheduleTask {
 	// 或直接指定时间间隔，例如：5秒
 	// @Scheduled(fixedRate = 5000)
 	private void configureTasks() {
-		String everyDay = Utils.getCurrentYMD();
+		String dtime = Utils.getCurrentYMD();
+		String creatMouth = Utils.getCurrentMouth();
+		EveryDay everyDay = new EveryDay();
+		everyDay.setDtime(dtime);
+		everyDay.setCreatMouth(creatMouth);
 		int row = dailyService.insertEveryDay(everyDay);
 		if (row > 0) {
 			System.err.println("任务执行成功；执行静态定时任务时间: " + Utils.getCurrentYMD());

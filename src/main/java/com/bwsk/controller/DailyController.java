@@ -34,25 +34,27 @@ public class DailyController {
 	 */
 	@RequestMapping("/insertOrUpdateDaily")
 	public Result<?> insertOrUpdateDaily(Daily daily) {
-		daily.setUid(4);
-		daily.setUsername("zhaoliu");
-		daily.setUposition("测试222");
-		daily.setUtelphone("222");
+		daily.setUid(3);
+		daily.setUsername("dsadsadagse");
+		daily.setUposition("测试222111");
+		daily.setUtelphone("2222111");
 		daily.setWeather(1);
 		daily.setAttendancetody(4);
 		daily.setAttendanceoneself(1);
 		daily.setEffectivework(2);
 		daily.setSatisfactiondegree(3);
-		daily.setEquipments("挖掘机-2;吊车-8");
+		daily.setEquipments("挖掘机-3;吊车-5;钻图集-1");
 		daily.setWorkcomment("挖土方666");
 		daily.setAbnorname("挖掘机有问题666");
 		daily.setDunning("催款钱666");
+		daily.setDpic("/image/picture/1583740915288.jpg");
+		daily.setDvoideo("/image/video/1583740928803.mp4");
 		BigDecimal amountody = new BigDecimal("60");
 		daily.setAmountody(amountody);
 		BigDecimal invoicetody = new BigDecimal("60");
 		daily.setInvoicetody(invoicetody);
-		daily.setDtime("2020-3-6");
-		daily.setPid(10);
+		daily.setDtime("2020年03月08日");
+		daily.setPid(11);
 		int row = dailyService.insertOrUpdateDaily(daily);
 		if (row > 0) {
 			return Result.success("操作成功");
@@ -69,7 +71,10 @@ public class DailyController {
 	 */
 	@RequestMapping("/queryEveryDay")
 	public Result<?> queryEveryDay(Daily daily, String dtime) {
-		String[] dtimes = dtime.split(";");
+		String[] dtimes = null;
+		if (dtime != null && !dtime.equals("")) {
+			dtimes = dtime.split(";");
+		}
 		List<EveryDay> list = dailyService.queryEveryDay(daily, dtimes);
 		if (list != null && list.size() > 0) {
 			return Result.success(list);

@@ -12,6 +12,8 @@ public class EveryDay {
 
 	private String dtime;
 
+	private String creatMouth;
+
 	private int currentPeople;// 用户是否提交
 
 	private List<Daily> dailyList;
@@ -38,6 +40,14 @@ public class EveryDay {
 
 	public void setDailyList(List<Daily> dailyList) {
 		this.dailyList = dailyList;
+	}
+
+	public String getCreatMouth() {
+		return creatMouth;
+	}
+
+	public void setCreatMouth(String creatMouth) {
+		this.creatMouth = creatMouth;
 	}
 
 }

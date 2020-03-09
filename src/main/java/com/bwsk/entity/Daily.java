@@ -64,6 +64,16 @@ public class Daily {
 
 	private int ustatus;// 用户是否提交
 
+	private String creatMouth;// 用户提交的月份
+
+	public String getCreatMouth() {
+		return creatMouth;
+	}
+
+	public void setCreatMouth(String creatMouth) {
+		this.creatMouth = creatMouth;
+	}
+
 	public int getDid() {
 		return did;
 	}

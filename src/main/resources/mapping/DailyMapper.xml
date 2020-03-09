@@ -40,6 +40,7 @@
         <result property="dtime" column="dtime" />
         <result property="pid" column="pid" />
         <result property="creattime" column="creattime" />
+        <result property="creatMouth" column="creatMouth" />
         <result property="pname" column="pname" />
     </resultMap>
  
@@ -112,6 +113,9 @@
 			<if test="creattime != null and creattime!=''">
 				creattime,
 			</if>
+			<if test="creatMouth != null and creatMouth!=''">
+				creatMouth,
+			</if>
    		</trim>
    		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="uid != null and uid!=''">
@@ -176,6 +180,9 @@
 			</if>
 			<if test="creattime != null and creattime!=''">
 				#{creattime},
+			</if>
+			<if test="creatMouth != null and creatMouth!=''">
+				#{creatMouth},
 			</if>
    		</trim>
    </insert>
@@ -247,7 +254,9 @@
 			<if test="creattime != null and creattime!=''">
 				creattime=#{creattime},
 			</if>
-   		
+   			<if test="creatMouth != null and creatMouth!=''">
+				creatMouth=#{creatMouth},
+			</if>
    		</set>
    			 where did=#{did}
    </update>
@@ -279,6 +288,7 @@
 		 a.dtime,
 		 a.pid,
 		 a.creattime,
+		 a.creatMouth,
 		 b.pname
 		FROM
 			daily a
@@ -294,7 +304,7 @@
 	          and a.pid = #{pid}
 	       	 </if>
 	       	 <if test="username != null and username != ''">
-	          and a.username = #{username}
+	          and a.username  like CONCAT('%',#{username},'%') 
 	       	 </if>
 	       	  <if test="did != null and did != ''">
 	          and a.did = #{did}
@@ -332,6 +342,7 @@
 					 a.dtime,
 					 a.pid,
 					 a.creattime,
+					 a.creatMouth,
 					 b.pname
 					 from daily a LEFT JOIN project b ON a.pid = b.pid   
 					 <where>
@@ -341,12 +352,15 @@
 					 </where>
 
 				) a on c.dtime=a.dtime
-				
-				where c.dtime in
-				<foreach collection="dtimes" item="dtime" open="("
-					separator="," close=")">
-					#{dtime}
-				</foreach>
+				<where>
+					<if test="dtimes!=null and dtimes !=''">
+						c.dtime in
+						<foreach collection="dtimes" item="dtime" open="("
+							separator="," close=")">
+							#{dtime}
+						</foreach>
+					</if>
+				</where>
 				 ORDER BY c.dtime desc			
    	</select>
    	
@@ -380,6 +394,7 @@
 				 a.dtime,
 				 a.pid,
 				 a.creattime,
+				 a.creatMouth,
 				 b.pname,
 				 b.weixin
 				FROM
@@ -391,7 +406,7 @@
    	</select>
    	
    	<!-- 插入 -->
-   	<insert id="insertEveryDay" parameterType="String">
-   		insert into everyday (dtime) values (#{dtime})  	
+   	<insert id="insertEveryDay" parameterType="com.bwsk.entity.EveryDay">
+   		insert into everyday (dtime,creatMouth) values (#{dtime},#{creatMouth})  	
    	</insert>
 </mapper>

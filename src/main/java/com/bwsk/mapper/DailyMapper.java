@@ -28,5 +28,5 @@ public interface DailyMapper {
 	public List<ProjectInfo> queryProject(Daily daily);
 
 	// 每天凌晨3点插入
-	public int insertEveryDay(String everyDay);
+	public int insertEveryDay(EveryDay everyDay);
 }

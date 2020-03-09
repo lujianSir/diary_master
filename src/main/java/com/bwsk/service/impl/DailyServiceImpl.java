@@ -27,6 +27,7 @@ public class DailyServiceImpl implements DailyService {
 		} else {// 不存在 添加
 			String currentTime = Utils.getCurrent();
 			daily.setCreattime(currentTime);
+			daily.setCreatMouth(Utils.getCurrentMouth());
 			row = dailyMapper.insertDaily(daily);
 		}
 		return row;
@@ -79,7 +80,7 @@ public class DailyServiceImpl implements DailyService {
 	}
 
 	@Override
-	public int insertEveryDay(String everyDay) {
+	public int insertEveryDay(EveryDay everyDay) {
 		// TODO Auto-generated method stub
 		return dailyMapper.insertEveryDay(everyDay);
 	}

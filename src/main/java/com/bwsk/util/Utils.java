@@ -14,12 +14,19 @@ public class Utils {
 
 	// 获取当前的时间(年月日)
 	public static String getCurrentYMD() {
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
+		SimpleDateFormat df = new SimpleDateFormat("yyyy年MM月dd日");// 设置日期格式
+		String currentTime = df.format(new Date());// new Date()为获取当前系统时间
+		return currentTime;
+	}
+
+	// 获取当前的年月
+	public static String getCurrentMouth() {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy年MM月");// 设置日期格式
 		String currentTime = df.format(new Date());// new Date()为获取当前系统时间
 		return currentTime;
 	}
 
 	public static void main(String[] args) {
-		System.out.println(Utils.getCurrent());
+		System.out.println(Utils.getCurrentYMD());
 	}
 }
