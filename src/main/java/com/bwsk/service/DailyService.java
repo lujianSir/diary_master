@@ -19,4 +19,7 @@ public interface DailyService {
 
 	// 查询当前日期每个项目下面有多少日报
 	public List<ProjectInfo> queryProject(Daily daily);
+
+	// 每天凌晨3点插入
+	public int insertEveryDay(String everyDay);
 }

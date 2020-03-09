@@ -5,9 +5,16 @@ import java.util.Date;
 
 public class Utils {
 
-	// 获取当前的时间
+	// 获取当前的时间(年月日，时分秒)
 	public static String getCurrent() {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
+		String currentTime = df.format(new Date());// new Date()为获取当前系统时间
+		return currentTime;
+	}
+
+	// 获取当前的时间(年月日)
+	public static String getCurrentYMD() {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");// 设置日期格式
 		String currentTime = df.format(new Date());// new Date()为获取当前系统时间
 		return currentTime;
 	}

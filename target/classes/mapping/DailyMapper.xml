@@ -382,4 +382,9 @@
 				) b on a.pid=b.pid LEFT JOIN projectuser c on a.pid=c.pid 
 				where c.uid=#{uid}	ORDER BY a.creattime desc
    	</select>
+   	
+   	<!-- 插入 -->
+   	<insert id="insertEveryDay" parameterType="String">
+   		insert into everyday (dtime) values (#{dtime})  	
+   	</insert>
 </mapper>

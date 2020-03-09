@@ -65,4 +65,10 @@ public class DailyServiceImpl implements DailyService {
 		return projects;
 	}
 
+	@Override
+	public int insertEveryDay(String everyDay) {
+		// TODO Auto-generated method stub
+		return dailyMapper.insertEveryDay(everyDay);
+	}
+
 }
