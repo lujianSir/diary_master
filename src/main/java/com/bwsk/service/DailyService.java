@@ -15,7 +15,7 @@ public interface DailyService {
 	public List<Daily> queryDaily(Daily daily);
 
 	// 通过日期排序查询
-	public List<EveryDay> queryEveryDay(Daily daily);
+	public List<EveryDay> queryEveryDay(Daily daily, String[] dtimes);
 
 	// 查询当前日期每个项目下面有多少日报
 	public List<ProjectInfo> queryProject(Daily daily);

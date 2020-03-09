@@ -39,9 +39,22 @@ public class DailyServiceImpl implements DailyService {
 	}
 
 	@Override
-	public List<EveryDay> queryEveryDay(Daily daily) {
+	public List<EveryDay> queryEveryDay(Daily daily, String[] dtimes) {
 		// TODO Auto-generated method stub
-		return dailyMapper.queryEveryDay(daily);
+		List<EveryDay> everyDays = dailyMapper.queryEveryDay(daily, dtimes);
+		for (EveryDay everyDay : everyDays) {
+			List<Daily> dailyList = everyDay.getDailyList();
+			if (dailyList.get(0).getDid() == 0) {
+				dailyList.clear();
+			} else {
+				for (Daily d : dailyList) {
+					if (d.getUid() == daily.getUid()) {
+						everyDay.setCurrentPeople(1);
+					}
+				}
+			}
+		}
+		return everyDays;
 	}
 
 	@Override

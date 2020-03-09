@@ -68,8 +68,9 @@ public class DailyController {
 	 * @return
 	 */
 	@RequestMapping("/queryEveryDay")
-	public Result<?> queryEveryDay(Daily daily) {
-		List<EveryDay> list = dailyService.queryEveryDay(daily);
+	public Result<?> queryEveryDay(Daily daily, String dtime) {
+		String[] dtimes = dtime.split(";");
+		List<EveryDay> list = dailyService.queryEveryDay(daily, dtimes);
 		if (list != null && list.size() > 0) {
 			return Result.success(list);
 		} else {

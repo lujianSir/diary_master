@@ -2,6 +2,7 @@ package com.bwsk.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.bwsk.entity.Daily;
@@ -21,7 +22,7 @@ public interface DailyMapper {
 	public List<Daily> queryDaily(Daily daily);
 
 	// 通过当前项目下面所有天数下面所有的日报
-	public List<EveryDay> queryEveryDay(Daily daily);
+	public List<EveryDay> queryEveryDay(@Param("daily") Daily daily, @Param("dtimes") String[] dtimes);
 
 	// 查询当前日期每个项目下面有多少日报
 	public List<ProjectInfo> queryProject(Daily daily);

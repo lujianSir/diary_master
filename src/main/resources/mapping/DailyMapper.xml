@@ -303,7 +303,7 @@
 		 order by a.creattime desc  
    	</select>
    	
-   	<!-- 按日期排序 -->
+   	<!-- 通过当前项目下面所有天数下面所有的日报 -->
    	<select id="queryEveryDay" resultMap="EveryDayResultMap">
    		SELECT c.*,a.* from  everyday c LEFT JOIN (
 				select
@@ -335,15 +335,22 @@
 					 b.pname
 					 from daily a LEFT JOIN project b ON a.pid = b.pid   
 					 <where>
-					 	 <if test="pid != null and pid != ''">
-				          and a.pid = #{pid}
+					 	 <if test="daily.pid != null and daily.pid != ''">
+				          and a.pid = #{daily.pid}
 				       	 </if>
 					 </where>
 
-				) a on c.dtime=a.dtime ORDER BY c.dtime desc
-
+				) a on c.dtime=a.dtime
+				
+				where c.dtime in
+				<foreach collection="dtimes" item="dtime" open="("
+					separator="," close=")">
+					#{dtime}
+				</foreach>
+				 ORDER BY c.dtime desc			
    	</select>
    	
+   	<!-- 查询当前日期每个项目下面有多少日报 -->
    	<select id="queryProject" resultMap="ProjectResultMap">
    		select  a.pid,a.pname,a.weixin,b.* from project a
 		LEFT JOIN (

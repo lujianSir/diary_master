@@ -12,7 +12,17 @@ public class EveryDay {
 
 	private String dtime;
 
+	private int currentPeople;// 用户是否提交
+
 	private List<Daily> dailyList;
+
+	public int getCurrentPeople() {
+		return currentPeople;
+	}
+
+	public void setCurrentPeople(int currentPeople) {
+		this.currentPeople = currentPeople;
+	}
 
 	public String getDtime() {
 		return dtime;
