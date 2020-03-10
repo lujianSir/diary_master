@@ -60,6 +60,10 @@
 			<if test="weixin != null and weixin!=''">
 				weixin,
 			</if>
+			<if test="materialuid != null and materialuid!=''">
+				materialuid,
+			</if>
+			
    		</trim>
    		<trim prefix="values (" suffix=")" suffixOverrides=",">
 	   		<if test="pname != null and pname!=''">
@@ -115,6 +119,9 @@
 			</if>
 			<if test="weixin != null and weixin!=''">
 				#{weixin},
+			</if>
+			<if test="materialuid != null and materialuid!=''">
+				#{materialuid},
 			</if>
    		</trim>
    </insert>
@@ -182,7 +189,9 @@
 			<if test="weixin != null and weixin!=''">
 				weixin=#{weixin},
 			</if>
-   		
+			<if test="materialuid != null and materialuid!=''">
+				materialuid=#{materialuid},
+			</if> 		
    		</set>
    			 where pid=#{pid}
    </update>
@@ -211,6 +220,10 @@
 			b.fineremarks,
 			b.creattime,
 			b.uid,
+			<if test="uid != null and uid != ''">
+	         	case when b.uid=#{uid} then '管理员' else '非管理员' end userpower,
+	         	case when b.materialuid =#{uid} then '计划管理员' else '非计划管理员' end materialpower,
+	       	 </if>
 			b.weixin,
 			c.username,
 			c.upic

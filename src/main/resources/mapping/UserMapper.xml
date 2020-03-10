@@ -89,5 +89,18 @@
    			 </where>  
    			 order by creattime desc
    </select> 
+   
+   <!-- 通过项目ID以及用户ID查询用户 -->
+   <select id="queryUserByUidAndPid" resultType="com.bwsk.entity.User">
+		   SELECT
+			b.*,
+			case when b.uid=#{uid} then 1 else 0 end currentuser
+			FROM
+				projectuser a
+			LEFT JOIN `user` b ON a.uid = b.uid
+			WHERE
+				a.pid = #{pid}
+   			ORDER BY b.creattime DESC
+   </select>
  
 </mapper>

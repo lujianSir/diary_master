@@ -460,6 +460,9 @@
 					 	 <if test="daily.pid != null and daily.pid != ''">
 				          and a.pid = #{daily.pid}
 				       	 </if>
+				       	 <if test="daily.username != null and daily.username != ''">
+				          and a.username like CONCAT('%',#{daily.username},'%')
+				       	 </if>
 					 </where>
 
 				) a on c.creatMouth=a.creatMouth

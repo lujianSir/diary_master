@@ -76,11 +76,7 @@ public class DailyController {
 			dtimes = dtime.split(";");
 		}
 		List<EveryDay> list = dailyService.queryEveryDay(daily, dtimes);
-		if (list != null && list.size() > 0) {
-			return Result.success(list);
-		} else {
-			return Result.error(500, "服务端错误");
-		}
+		return Result.success(list);
 	}
 
 	/**
@@ -92,11 +88,7 @@ public class DailyController {
 	@RequestMapping("/queryProject")
 	public Result<?> queryProject(Daily daily) {
 		List<ProjectInfo> list = dailyService.queryProject(daily);
-		if (list != null && list.size() > 0) {
-			return Result.success(list);
-		} else {
-			return Result.error(500, "服务端错误");
-		}
+		return Result.success(list);
 	}
 
 	/**
@@ -108,11 +100,7 @@ public class DailyController {
 	@RequestMapping("/queryDaily")
 	public Result<?> queryDaily(Daily daily) {
 		List<Daily> list = dailyService.queryDaily(daily);
-		if (list != null && list.size() > 0) {
-			return Result.success(list);
-		} else {
-			return Result.error(500, "服务端错误");
-		}
+		return Result.success(list);
 	}
 
 	/**
@@ -129,10 +117,6 @@ public class DailyController {
 			creatMouths = creatMouth.split(";");
 		}
 		List<EveryDay> list = dailyService.queryEveryDayByMonth(daily, creatMouths);
-		if (list != null && list.size() > 0) {
-			return Result.success(list);
-		} else {
-			return Result.error(500, "服务端错误");
-		}
+		return Result.success(list);
 	}
 }

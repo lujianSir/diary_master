@@ -48,11 +48,41 @@ public class Project {
 
 	private String fineremarks;// 罚款备注
 
+	private int materialuid;// 材料负责人
+
 	private String creattime;// 创建的时间
 
 	private int uid;// 创建的人
 
 	private String weixin;// 项目绑定的微信ID
+
+	private String userpower;// 项目负责人(编辑项目、收款管理)
+
+	private String materialpower;// 计划负责人(计划管理)
+
+	public String getUserpower() {
+		return userpower;
+	}
+
+	public void setUserpower(String userpower) {
+		this.userpower = userpower;
+	}
+
+	public String getMaterialpower() {
+		return materialpower;
+	}
+
+	public void setMaterialpower(String materialpower) {
+		this.materialpower = materialpower;
+	}
+
+	public int getMaterialuid() {
+		return materialuid;
+	}
+
+	public void setMaterialuid(int materialuid) {
+		this.materialuid = materialuid;
+	}
 
 	public int getPid() {
 		return pid;

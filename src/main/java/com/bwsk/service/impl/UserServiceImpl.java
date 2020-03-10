@@ -1,5 +1,7 @@
 package com.bwsk.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,9 +10,8 @@ import com.bwsk.mapper.UserMapper;
 import com.bwsk.service.UserService;
 import com.bwsk.util.Utils;
 
-
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserMapper userMapper;
@@ -18,13 +19,13 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public int insertOrUpdateUser(User user) {
 		// TODO Auto-generated method stub
-		int row=0;
-		if(user.getUid()>0) {//存在  修改
-			row=userMapper.updateUser(user);
-		}else {//不存在 添加
-			String currentTime=Utils.getCurrent();
+		int row = 0;
+		if (user.getUid() > 0) {// 存在 修改
+			row = userMapper.updateUser(user);
+		} else {// 不存在 添加
+			String currentTime = Utils.getCurrent();
 			user.setCreattime(currentTime);
-			row=userMapper.insertUser(user);
+			row = userMapper.insertUser(user);
 		}
 		return row;
 	}
@@ -34,6 +35,11 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		return userMapper.queryUserByWxIdOrUid(user);
 	}
-	
+
+	@Override
+	public List<User> queryUserByUidAndPid(int uid, int pid) {
+		// TODO Auto-generated method stub
+		return userMapper.queryUserByUidAndPid(uid, pid);
+	}
 
 }
