@@ -24,7 +24,7 @@ public class CompanyController {
 	private CompanyService companyService;
 
 	/**
-	 * 通过微信ID或者用户ID查询关联的信息
+	 * 通过公司ID或者用户ID查询公司的信息
 	 * 
 	 * @param user
 	 * @return

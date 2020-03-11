@@ -54,11 +54,31 @@ public class Project {
 
 	private int uid;// 创建的人
 
+	private String username;// 名称
+
+	private String cabbreviation;// 公司的简称
+
 	private String weixin;// 项目绑定的微信ID
 
 	private String userpower;// 项目负责人(编辑项目、收款管理)
 
 	private String materialpower;// 计划负责人(计划管理)
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getCabbreviation() {
+		return cabbreviation;
+	}
+
+	public void setCabbreviation(String cabbreviation) {
+		this.cabbreviation = cabbreviation;
+	}
 
 	public String getUserpower() {
 		return userpower;

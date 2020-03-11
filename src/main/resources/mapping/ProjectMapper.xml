@@ -226,7 +226,8 @@
 	       	 </if>
 			b.weixin,
 			c.username,
-			c.upic
+			c.upic,
+			d.cabbreviation
 		FROM
 			projectuser a
 		LEFT JOIN project b ON a.pid = b.pid

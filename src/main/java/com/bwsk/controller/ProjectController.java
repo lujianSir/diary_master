@@ -1,6 +1,5 @@
 package com.bwsk.controller;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,25 +31,25 @@ public class ProjectController {
 	 */
 	@RequestMapping("/insertOrUpdateProject")
 	public Result<?> insertOrUpdateProject(Project project) {
-		project.setPname("赤壁项目");
-		project.setPabbreviation("赤壁");
-		project.setPnumber("21321");
-		project.setPaddress("湖北崇赤壁");
-		project.setPstatus(2);
-		project.setCid(5);
-		project.setPtype(3);
-		BigDecimal contractamount = new BigDecimal("920");
-		project.setContractamount(contractamount);
-		BigDecimal acceptedamount = new BigDecimal("740");
-		project.setAcceptedamount(acceptedamount);
-		BigDecimal acceptedinvoice = new BigDecimal("430");
-		project.setAcceptedinvoice(acceptedinvoice);
-		project.setTotalartificial(10);
-		project.setApproachDay("2010-3-3");
-		project.setCompleteDay("2019-18-3");
-		project.setPaycondition("非dsda要全部成功");
-		project.setFineremarks("晚3211扣1000");
-		project.setUid(3);
+//		project.setPname("赤壁项目");
+//		project.setPabbreviation("赤壁");
+//		project.setPnumber("21321");
+//		project.setPaddress("湖北崇赤壁");
+//		project.setPstatus(2);
+//		project.setCid(5);
+//		project.setPtype(3);
+//		BigDecimal contractamount = new BigDecimal("920");
+//		project.setContractamount(contractamount);
+//		BigDecimal acceptedamount = new BigDecimal("740");
+//		project.setAcceptedamount(acceptedamount);
+//		BigDecimal acceptedinvoice = new BigDecimal("430");
+//		project.setAcceptedinvoice(acceptedinvoice);
+//		project.setTotalartificial(10);
+//		project.setApproachDay("2010-3-3");
+//		project.setCompleteDay("2019-18-3");
+//		project.setPaycondition("非dsda要全部成功");
+//		project.setFineremarks("晚3211扣1000");
+//		project.setUid(3);
 		int row = projectService.insertOrUpdateProject(project);
 		if (row > 0) {
 			return Result.success("操作成功");
@@ -60,7 +59,7 @@ public class ProjectController {
 	}
 
 	/**
-	 * 多种条件查询
+	 * 项目多种条件查询
 	 * 
 	 * @param project
 	 * @return
