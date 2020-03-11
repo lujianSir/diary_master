@@ -65,10 +65,6 @@ public class UserController {
 	@RequestMapping("/queryUserByUidAndPid")
 	public Result<?> queryUserByUidAndPid(int uid, int pid) {
 		List<User> list = userService.queryUserByUidAndPid(uid, pid);
-		if (list != null && list.size() > 0) {
-			return Result.success(list);
-		} else {
-			return Result.error(500, "服务端错误");
-		}
+		return Result.success(list);
 	}
 }

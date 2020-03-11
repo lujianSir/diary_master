@@ -9,11 +9,16 @@
  
 	<!-- 批量插入 -->
  	<insert id="insertCollectionMoney" parameterType="java.util.List">
- 		insert into collectionmoney (money,mtime,mcomment,mstatus,pid,mtimeChinese)
+ 		insert into collectionmoney (money,mtime,mcomment,mstatus,pid)
  		  values 
 	    <foreach collection="list" item="item" index="index" separator=",">
-	        (#{item.money},#{item.mtime},#{item.mcomment},#{item.mstatus},#{item.pid},#{mtimeChinese})
+	        (#{item.money},#{item.mtime},#{item.mcomment},#{item.mstatus},#{item.pid})
 	    </foreach>
 
  	</insert>
+ 	
+ 	<!-- 通过项目的ID查询所有的收款信息 -->
+ 	<select id="queryCollectionMoneys" resultType="com.bwsk.entity.CollectionMoney">
+ 		select * from collectionmoney where pid=#{pid} and mstatus=1 ORDER BY mid
+ 	</select>
 </mapper>

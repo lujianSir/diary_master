@@ -14,4 +14,7 @@ public interface MoneyMapper {
 
 	// 删除所有的数据
 	public void deleteCollectionMoney();
+
+	// 通过项目的ID查询所有的收款信息
+	public List<CollectionMoney> queryCollectionMoneys(CollectionMoney collectionMoney);
 }

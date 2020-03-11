@@ -8,11 +8,17 @@ public class CollectionMoney {
 
 	private BigDecimal money;// 收款的金额
 
+	private String moneychinese;// 金额中文
+
 	private String mtime;// 收款的日期
 
-	private String mtimeChinese;// 收款日期 (年、月、日)
+	private String mtimechinese;// 收款日期 (年、月、日)
 
 	private String mcomment;// 收款的内容
+
+	private String remindcomment;// 提醒内容
+
+	private int remindstatus;// 提醒状态
 
 	private int mstatus;// 是否开启
 
@@ -20,12 +26,36 @@ public class CollectionMoney {
 
 	private int pid;// 项目ID
 
-	public String getMtimeChinese() {
-		return mtimeChinese;
+	public String getMoneychinese() {
+		return moneychinese;
 	}
 
-	public void setMtimeChinese(String mtimeChinese) {
-		this.mtimeChinese = mtimeChinese;
+	public void setMoneychinese(String moneychinese) {
+		this.moneychinese = moneychinese;
+	}
+
+	public String getRemindcomment() {
+		return remindcomment;
+	}
+
+	public void setRemindcomment(String remindcomment) {
+		this.remindcomment = remindcomment;
+	}
+
+	public int getRemindstatus() {
+		return remindstatus;
+	}
+
+	public void setRemindstatus(int remindstatus) {
+		this.remindstatus = remindstatus;
+	}
+
+	public String getMtimechinese() {
+		return mtimechinese;
+	}
+
+	public void setMtimechinese(String mtimechinese) {
+		this.mtimechinese = mtimechinese;
 	}
 
 	public int getMid() {

@@ -68,11 +68,7 @@ public class ProjectController {
 	@RequestMapping("/queryProject")
 	public Result<?> queryProject(Project project) {
 		List<Project> list = projectService.queryProject(project);
-		if (list != null && list.size() > 0) {
-			return Result.success(list);
-		} else {
-			return Result.error(500, "服务端错误");
-		}
+		return Result.success(list);
 	}
 
 }

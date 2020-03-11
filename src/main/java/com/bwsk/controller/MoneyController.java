@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bwsk.entity.CollectionMoney;
 import com.bwsk.service.MoneyService;
 import com.bwsk.util.Result;
+import com.bwsk.util.Utils;
 
 /**
  * 用户相关的接口
@@ -34,13 +35,16 @@ public class MoneyController {
 	@RequestMapping("/insertCollectionMoney")
 	public Result<?> insertCollectionMoney() {
 		List<CollectionMoney> list = new ArrayList<CollectionMoney>();
-		for (int i = 0; i < 2; i++) {
-			CollectionMoney collectionMoney = new CollectionMoney();
-			BigDecimal amountody = new BigDecimal("60");
-			collectionMoney.setMoney(amountody);
-			collectionMoney.setMtime("2020年03月08日");
-			list.add(collectionMoney);
-		}
+		CollectionMoney collectionMoney = new CollectionMoney();
+		BigDecimal amountody = new BigDecimal("60");
+		collectionMoney.setMoney(amountody);
+		String str = "1586448000";
+		collectionMoney.setMtime(Utils.timeStampDate(str, null));
+		collectionMoney.setMtimechinese(Utils.timeStampDateChinese(str, null));
+		collectionMoney.setMstatus(1);
+		collectionMoney.setMcomment("测试数据");
+		collectionMoney.setPid(11);
+		list.add(collectionMoney);
 
 		int row = moneyService.insertCollectionMoney(list);
 		if (row > 0) {
@@ -49,6 +53,19 @@ public class MoneyController {
 			return Result.error(500, "服务端错误");
 		}
 
+	}
+
+	/**
+	 * 查询所有的收款提醒
+	 * 
+	 * @param collectionMoney
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/queryCollectionMoneys")
+	public Result<?> queryCollectionMoneys(CollectionMoney collectionMoney) throws Exception {
+		List<CollectionMoney> list = moneyService.queryCollectionMoneys(collectionMoney);
+		return Result.success(list);
 	}
 
 }
