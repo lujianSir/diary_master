@@ -22,8 +22,6 @@ public class CollectionMoney {
 
 	private int mstatus;// 是否开启
 
-	private String creattime;// 创建的时间
-
 	private int pid;// 项目ID
 
 	public String getMoneychinese() {
@@ -96,14 +94,6 @@ public class CollectionMoney {
 
 	public void setMstatus(int mstatus) {
 		this.mstatus = mstatus;
-	}
-
-	public String getCreattime() {
-		return creattime;
-	}
-
-	public void setCreattime(String creattime) {
-		this.creattime = creattime;
 	}
 
 	public int getPid() {

@@ -21,7 +21,7 @@ public class MoneyServiceImpl implements MoneyService {
 	@Override
 	public int insertCollectionMoney(List<CollectionMoney> list) {
 		// TODO Auto-generated method stub
-		// moneyMapper.deleteCollectionMoney();
+		moneyMapper.deleteCollectionMoney();
 		int row = moneyMapper.insertCollectionMoney(list);
 		return row;
 	}
@@ -36,7 +36,7 @@ public class MoneyServiceImpl implements MoneyService {
 			String datechinese = Utils.timeStampDateChinese(timeStemp, null);
 			String currentymd = Utils.getCurrentymd();
 			Map<String, Object> map = Utils.getDistanceDays(mtime, currentymd);
-			money.setMoneychinese(datechinese);
+			money.setMtimechinese(datechinese);
 			money.setRemindcomment(map.get("content").toString());
 			money.setRemindstatus(Integer.parseInt(map.get("status").toString()));
 			money.setMoneychinese(ConvertUpMoney.toChinese(money.getMoney() + ""));

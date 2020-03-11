@@ -40,7 +40,6 @@ public class MoneyController {
 		collectionMoney.setMoney(amountody);
 		String str = "1586448000";
 		collectionMoney.setMtime(Utils.timeStampDate(str, null));
-		collectionMoney.setMtimechinese(Utils.timeStampDateChinese(str, null));
 		collectionMoney.setMstatus(1);
 		collectionMoney.setMcomment("测试数据");
 		collectionMoney.setPid(11);
