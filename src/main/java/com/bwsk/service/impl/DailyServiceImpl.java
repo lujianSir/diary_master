@@ -61,6 +61,9 @@ public class DailyServiceImpl implements DailyService {
 	@Override
 	public List<ProjectInfo> queryProject(Daily daily) {
 		// TODO Auto-generated method stub
+		if (daily.getDtime() != null && !daily.getDtime().equals("")) {
+			daily.setDtime(Utils.timeStampDateChinese(daily.getDtime(), null));
+		}
 		List<ProjectInfo> projects = dailyMapper.queryProject(daily);
 		for (ProjectInfo project : projects) {
 			List<Daily> dailys = project.getDailyList();
