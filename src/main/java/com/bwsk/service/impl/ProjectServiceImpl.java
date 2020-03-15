@@ -34,6 +34,7 @@ public class ProjectServiceImpl implements ProjectService {
 		} else {// 不存在 添加
 			String currentTime = Utils.getCurrent();
 			project.setCreattime(currentTime);
+			project.setMaterialuid(project.getUid());
 			projectMapper.insertProject(project);
 
 			ProjectUser projectUser = new ProjectUser();// 用户与项目绑定
