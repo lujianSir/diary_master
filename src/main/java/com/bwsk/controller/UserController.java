@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bwsk.entity.User;
 import com.bwsk.service.UserService;
 import com.bwsk.util.Result;
+import com.bwsk.util.WeChatUtil;
 
 /**
  * 用户相关的接口
@@ -66,5 +68,37 @@ public class UserController {
 	public Result<?> queryUserByUidAndPid(int uid, int pid) {
 		List<User> list = userService.queryUserByUidAndPid(uid, pid);
 		return Result.success(list);
+	}
+
+	/**
+	 * 通过code获取openid
+	 * 
+	 * @param code
+	 * @return
+	 */
+	@RequestMapping("/getWxOpineId")
+	public Result<?> getWxOpineId(String code, User user) {
+		// 微信小程序ID
+		String appid = "";
+		// 微信小程序秘钥
+		String secret = "";
+
+		// 根据小程序穿过来的code想这个url发送请求
+		String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid + "&secret=" + secret + "&js_code="
+				+ code + "&grant_type=authorization_code";
+		// 发送请求，返回Json字符串
+		String str = WeChatUtil.httpRequest(url, "GET", null);
+		// 转成Json对象 获取openid
+		JSONObject jsonObject = JSONObject.parseObject(str);
+
+		// 我们需要的openid，在一个小程序中，openid是唯一的
+		String openid = jsonObject.get("openid").toString();
+		user.setWxid(openid);
+		User u = userService.queryUserByWxIdOrUid(user);// 查询是否存在
+		if (u == null) {
+			userService.insertOrUpdateUser(user);// 不存在则添加
+			u = userService.queryUserByWxIdOrUid(user);
+		}
+		return Result.success(u.getUid());
 	}
 }
