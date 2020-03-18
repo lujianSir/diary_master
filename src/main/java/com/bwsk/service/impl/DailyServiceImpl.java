@@ -25,6 +25,9 @@ public class DailyServiceImpl implements DailyService {
 		if (daily.getDid() > 0) {// 存在 修改
 			row = dailyMapper.updateDaily(daily);
 		} else {// 不存在 添加
+			if (daily.getDtime() != null && !daily.getDtime().equals("")) {
+				daily.setDtime(Utils.timeStampDateChinese(daily.getDtime(), null));
+			}
 			String currentTime = Utils.getCurrent();
 			daily.setCreattime(currentTime);
 			daily.setCreatMouth(Utils.getCurrentMouth());

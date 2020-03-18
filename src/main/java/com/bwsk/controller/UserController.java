@@ -50,6 +50,10 @@ public class UserController {
 	@RequestMapping("/queryUserByWxIdOrUid")
 	public Result<?> queryUserByWxIdOrUid(User user) {
 		User u = userService.queryUserByWxIdOrUid(user);
+		if (u == null) {
+			userService.insertOrUpdateUser(user);// 不存在则添加
+			u = userService.queryUserByWxIdOrUid(user);
+		}
 		if (u != null) {
 			return Result.success(u);
 		} else {

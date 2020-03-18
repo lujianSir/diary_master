@@ -424,7 +424,7 @@
    		insert into everyday (dtime,creatMouth) values (#{dtime},#{creatMouth})  	
    	</insert>
    	
-   		<!-- 通过当前项目下面所有天数下面所有的日报 -->
+   		<!-- 查询每个月的照片以及视频 -->
    	<select id="queryEveryDayByMonth" resultMap="EveryDayMonthResultMap">
    		SELECT c.*,a.* from  everyday c LEFT JOIN (
 				select
@@ -475,6 +475,6 @@
 						</foreach>
 					</if>
 				</where>
-				 ORDER BY c.dtime desc			
+				 ORDER BY c.creatMouth, c.dtime desc			
    	</select>
 </mapper>

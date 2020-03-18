@@ -74,6 +74,17 @@ public class Utils {
 		return sdf.format(new Date(Long.valueOf(seconds + "000")));
 	}
 
+	public static String timeStampDateChineseshot(String seconds, String format) {
+		if (seconds == null || seconds.isEmpty() || seconds.equals("null")) {
+			return "";
+		}
+		if (format == null || format.isEmpty()) {
+			format = "yyyy年MM月";
+		}
+		SimpleDateFormat sdf = new SimpleDateFormat(format);
+		return sdf.format(new Date(Long.valueOf(seconds + "000")));
+	}
+
 	/**
 	 * 取得当前时间戳（精确到秒）
 	 * 
@@ -91,6 +102,20 @@ public class Utils {
 		String timeStemp = "";
 		try {
 			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+			d = sf.parse(timers);// 日期转换为时间戳
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		timeStemp = String.valueOf(d.getTime() / 1000);
+		return timeStemp;
+	}
+
+	public static String timeToStampshot(String timers) throws java.text.ParseException {
+		Date d = new Date();
+		String timeStemp = "";
+		try {
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM");
 			d = sf.parse(timers);// 日期转换为时间戳
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -151,8 +176,8 @@ public class Utils {
 //		String date2 = timeStampDate2(timeStamp, null);
 //		System.out.println(date);
 //		System.out.println(date2);
-		String timeStemp = timeToStamp("2020-04-10");
-		String date = timeStampDate(timeStemp, null);
+		String timeStemp = timeToStampshot("2020-03");
+		String date = timeStampDateChineseshot(timeStemp, null);
 		System.out.println(timeStemp);
 		System.out.println(date);
 	}
