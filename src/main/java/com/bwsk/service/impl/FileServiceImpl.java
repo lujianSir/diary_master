@@ -19,7 +19,7 @@ public class FileServiceImpl implements FileService {
 	private FileMapper fileMapper;
 
 	@Override
-	public Result<?> fileUpload(MultipartFile file, int kind) {
+	public String fileUpload(MultipartFile file, int kind) {
 		// TODO Auto-generated method stub
 		if (!file.isEmpty()) {
 			try {
@@ -64,12 +64,12 @@ public class FileServiceImpl implements FileService {
 				fileinfo.setFvirtualurl(fvirtualurl);
 				fileinfo.setFuploadtime(Utils.getCurrent());
 				fileMapper.insertFileInfo(fileinfo);
-				return Result.success(fvirtualurl);
+				return fvirtualurl;
 			} catch (Exception e) {
-				return Result.error(500, "服务端错误");
+				return "服务端错误";
 			}
 		} else {
-			return Result.error(50010, "请上传文件");
+			return "请上传文件";
 		}
 	}
 

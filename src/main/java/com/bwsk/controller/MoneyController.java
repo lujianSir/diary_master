@@ -1,6 +1,5 @@
 package com.bwsk.controller;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bwsk.entity.CollectionMoney;
 import com.bwsk.service.MoneyService;
 import com.bwsk.util.Result;
-import com.bwsk.util.Utils;
 
 /**
  * 用户相关的接口
@@ -33,17 +31,17 @@ public class MoneyController {
 	 * @return
 	 */
 	@RequestMapping("/insertCollectionMoney")
-	public Result<?> insertCollectionMoney() {
+	public Result<?> insertCollectionMoney(String moneys) {
 		List<CollectionMoney> list = new ArrayList<CollectionMoney>();
-		CollectionMoney collectionMoney = new CollectionMoney();
-		BigDecimal amountody = new BigDecimal("60");
-		collectionMoney.setMoney(amountody);
-		String str = "1586448000";
-		collectionMoney.setMtime(Utils.timeStampDate(str, null));
-		collectionMoney.setMstatus(1);
-		collectionMoney.setMcomment("测试数据");
-		collectionMoney.setPid(11);
-		list.add(collectionMoney);
+//		CollectionMoney collectionMoney = new CollectionMoney();
+//		BigDecimal amountody = new BigDecimal("60");
+//		collectionMoney.setMoney(amountody);
+//		String str = "1586448000";
+//		collectionMoney.setMtime(Utils.timeStampDate(str, null));
+//		collectionMoney.setMstatus(1);
+//		collectionMoney.setMcomment("测试数据");
+//		collectionMoney.setPid(11);
+//		list.add(collectionMoney);
 
 		int row = moneyService.insertCollectionMoney(list);
 		if (row > 0) {

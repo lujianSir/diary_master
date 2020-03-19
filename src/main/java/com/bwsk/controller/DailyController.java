@@ -74,8 +74,10 @@ public class DailyController {
 		String[] dtimes = null;
 		if (dtime != null && !dtime.equals("")) {
 			dtimes = dtime.split(";");
-			for (String d : dtimes) {
-				d = Utils.timeStampDateChinese(d, null);
+			for (int i = 0; i < dtimes.length; i++) {
+				String str = dtimes[i];
+				str = Utils.timeStampDateChinese(str, null);
+				dtimes[i] = str;
 			}
 		}
 		List<EveryDay> list = dailyService.queryEveryDay(daily, dtimes);

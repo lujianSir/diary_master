@@ -66,6 +66,14 @@ public class Daily {
 
 	private String creatMouth;// 用户提交的月份
 
+	public String getEquipments() {
+		return equipments;
+	}
+
+	public void setEquipments(String equipments) {
+		this.equipments = equipments;
+	}
+
 	public String getCreatMouth() {
 		return creatMouth;
 	}
@@ -154,13 +162,13 @@ public class Daily {
 		this.satisfactiondegree = satisfactiondegree;
 	}
 
-	public String getEquipments() {
-		return equipments;
-	}
-
-	public void setEquipments(String equipments) {
-		this.equipments = equipments;
-	}
+//	public String getEquipments() {
+//		return equipments;
+//	}
+//
+//	public void setEquipments(String equipments) {
+//		this.equipments = equipments;
+//	}
 
 	public String getWorkcomment() {
 		return workcomment;
