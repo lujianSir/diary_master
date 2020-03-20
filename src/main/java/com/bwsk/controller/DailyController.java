@@ -1,11 +1,18 @@
 package com.bwsk.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.bwsk.entity.Daily;
 import com.bwsk.entity.EveryDay;
 import com.bwsk.entity.ProjectInfo;
@@ -120,11 +127,43 @@ public class DailyController {
 		String[] creatMouths = null;
 		if (creatMouth != null && !creatMouth.equals("")) {
 			creatMouths = creatMouth.split(";");
-			for (String cm : creatMouths) {
+			for (int i = 0; i < creatMouths.length; i++) {
+				String cm = creatMouths[i];
 				cm = Utils.timeStampDateChineseshot(cm, null);
+				creatMouths[i] = cm;
 			}
 		}
 		List<EveryDay> list = dailyService.queryEveryDayByMonth(daily, creatMouths);
+		for (int i = 0; i < list.size(); i++) {
+			List<Daily> dailys = list.get(i).getDailyList();
+			for (int j = 0; j < dailys.size(); j++) {
+				List<String> list1 = new ArrayList<String>();
+				String dpic = dailys.get(j).getDpic();
+				dpic = StringUtils.strip(dpic, "[]");
+				String[] dpics = dpic.split(",");
+				for (int m = 0; m < dpics.length; m++) {
+					list1.add(dpics[m].replace("\"", ""));
+				}
+				dailys.get(j).setDpics(list1);
+
+				List list2 = new ArrayList();
+				String dvoideo = dailys.get(j).getDvoideo();
+				JSONArray jsonArray = JSONArray.parseArray(new String(dvoideo));
+				for (int n = 0; n < jsonArray.size(); n++) {
+					Map m = new HashMap();
+					JSONObject o = (JSONObject) jsonArray.get(n);
+					Map<String, Object> map = o;
+					for (Entry<String, Object> entry : map.entrySet()) {
+						String value = (String) entry.getValue();
+						System.out.println(entry.getKey() + "=" + entry.getValue());
+						m.put(entry.getKey(), entry.getValue());
+					}
+					list2.add(m);
+				}
+
+				dailys.get(j).setDvoideos(list2);
+			}
+		}
 		return Result.success(list);
 	}
 }

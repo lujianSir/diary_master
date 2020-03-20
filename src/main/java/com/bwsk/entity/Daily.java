@@ -1,6 +1,7 @@
 package com.bwsk.entity;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * 日报实体
@@ -52,7 +53,11 @@ public class Daily {
 
 	private String dpic;// 项目附图
 
+	private List<String> dpics;// 项目附图
+
 	private String dvoideo;// 项目视频
+
+	private List dvoideos;// 项目视频
 
 	private String dtime;// 日报提交的时间
 
@@ -296,6 +301,22 @@ public class Daily {
 
 	public void setUstatus(int ustatus) {
 		this.ustatus = ustatus;
+	}
+
+	public List<String> getDpics() {
+		return dpics;
+	}
+
+	public void setDpics(List<String> dpics) {
+		this.dpics = dpics;
+	}
+
+	public List getDvoideos() {
+		return dvoideos;
+	}
+
+	public void setDvoideos(List dvoideos) {
+		this.dvoideos = dvoideos;
 	}
 
 }
