@@ -8,6 +8,8 @@ public class Material {
 
 	private String mttime;// 进场时间
 
+	private String mttimerub;// 进场时间搓
+
 	private String mttimechinese;// 收款日期 (年、月、日)
 
 	private int mttype;// 类型 1结构部分 2 维护部分
@@ -25,6 +27,14 @@ public class Material {
 	private String mtstatusname;// 名称
 
 	private int pid;// 项目的ID
+
+	public String getMttimerub() {
+		return mttimerub;
+	}
+
+	public void setMttimerub(String mttimerub) {
+		this.mttimerub = mttimerub;
+	}
 
 	public String getMttypename() {
 		return mttypename;

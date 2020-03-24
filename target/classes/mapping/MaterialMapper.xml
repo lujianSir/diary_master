@@ -30,6 +30,10 @@
 		 case when mtstatus=1 then '已进场' else '未进场' end mtstatusname,
 			pid
 		FROM
-			material  where pid=#{pid} ORDER BY mtid
+			material  where pid=#{material.pid} 
+			<if test="type==1">
+			 and mtstatus=1
+			</if>
+			ORDER BY mtid
  	</select>
 </mapper>

@@ -27,9 +27,9 @@ public class MoneyServiceImpl implements MoneyService {
 	}
 
 	@Override
-	public List<CollectionMoney> queryCollectionMoneys(CollectionMoney collectionMoney) throws Exception {
+	public List<CollectionMoney> queryCollectionMoneys(CollectionMoney collectionMoney, int type) throws Exception {
 		// TODO Auto-generated method stub
-		List<CollectionMoney> collectionMoneys = moneyMapper.queryCollectionMoneys(collectionMoney);
+		List<CollectionMoney> collectionMoneys = moneyMapper.queryCollectionMoneys(collectionMoney, type);
 		for (CollectionMoney money : collectionMoneys) {
 			String mtime = money.getMtime();
 			String timeStemp = Utils.timeToStamp(mtime);// 时间错

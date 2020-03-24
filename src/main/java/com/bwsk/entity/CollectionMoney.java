@@ -12,6 +12,8 @@ public class CollectionMoney {
 
 	private String mtime;// 收款的日期
 
+	private String mtimerub;// 时间搓
+
 	private String mtimechinese;// 收款日期 (年、月、日)
 
 	private String mcomment;// 收款的内容
@@ -23,6 +25,14 @@ public class CollectionMoney {
 	private int mstatus;// 是否开启
 
 	private int pid;// 项目ID
+
+	public String getMtimerub() {
+		return mtimerub;
+	}
+
+	public void setMtimerub(String mtimerub) {
+		this.mtimerub = mtimerub;
+	}
 
 	public String getMoneychinese() {
 		return moneychinese;

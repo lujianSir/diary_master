@@ -20,15 +20,15 @@ public class MaterialServicelmpl implements MaterialService {
 	@Override
 	public int insertMaterial(List<Material> list) {
 		// TODO Auto-generated method stub
-		// materialMapper.deleteMaterial();
+		materialMapper.deleteMaterial();
 		int row = materialMapper.insertMaterial(list);
 		return row;
 	}
 
 	@Override
-	public List<Material> queryMaterials(Material material) throws Exception {
+	public List<Material> queryMaterials(Material material, int type) throws Exception {
 		// TODO Auto-generated method stub
-		List<Material> materials = materialMapper.queryMaterials(material);
+		List<Material> materials = materialMapper.queryMaterials(material, type);
 		for (Material mater : materials) {
 			String mttime = mater.getMttime();
 			String timeStemp = Utils.timeToStamp(mttime);// 时间错

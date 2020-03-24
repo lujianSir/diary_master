@@ -1,15 +1,22 @@
 package com.bwsk.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.bwsk.entity.CollectionMoney;
 import com.bwsk.service.MoneyService;
 import com.bwsk.util.Result;
+import com.bwsk.util.Utils;
 
 /**
  * 用户相关的接口
@@ -31,8 +38,24 @@ public class MoneyController {
 	 * @return
 	 */
 	@RequestMapping("/insertCollectionMoney")
-	public Result<?> insertCollectionMoney(String moneys) {
+	public Result<?> insertCollectionMoney(String moneys, int pid) {
 		List<CollectionMoney> list = new ArrayList<CollectionMoney>();
+		JSONArray jsonArray = JSONArray.parseArray(new String(moneys));
+		for (int i = 0; i < jsonArray.size(); i++) {
+			Map<String, Object> m = new HashMap<String, Object>();
+			CollectionMoney collectionMoney = new CollectionMoney();
+			JSONObject o = (JSONObject) jsonArray.get(i);
+			Map<String, Object> map = o;
+			for (Entry<String, Object> entry : map.entrySet()) {
+				m.put(entry.getKey(), entry.getValue());
+			}
+			collectionMoney.setMoney(new BigDecimal(m.get("money").toString()));
+			collectionMoney.setMtime(m.get("date").toString());
+			collectionMoney.setMcomment(m.get("mcomment").toString());
+			collectionMoney.setMstatus(Integer.parseInt(m.get("status").toString()));
+			collectionMoney.setPid(pid);
+			list.add(collectionMoney);
+		}
 //		CollectionMoney collectionMoney = new CollectionMoney();
 //		BigDecimal amountody = new BigDecimal("60");
 //		collectionMoney.setMoney(amountody);
@@ -60,8 +83,11 @@ public class MoneyController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/queryCollectionMoneys")
-	public Result<?> queryCollectionMoneys(CollectionMoney collectionMoney) throws Exception {
-		List<CollectionMoney> list = moneyService.queryCollectionMoneys(collectionMoney);
+	public Result<?> queryCollectionMoneys(CollectionMoney collectionMoney, int type) throws Exception {
+		List<CollectionMoney> list = moneyService.queryCollectionMoneys(collectionMoney, type);
+		for (CollectionMoney collectionMoney2 : list) {
+			collectionMoney2.setMtimerub(Utils.timeToStamp(collectionMoney2.getMtime()));
+		}
 		return Result.success(list);
 	}
 
