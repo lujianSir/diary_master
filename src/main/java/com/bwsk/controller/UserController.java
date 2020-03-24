@@ -54,6 +54,7 @@ public class UserController {
 			userService.insertOrUpdateUser(user);// 不存在则添加
 			u = userService.queryUserByWxIdOrUid(user);
 		}
+
 		if (u != null) {
 			return Result.success(u);
 		} else {
