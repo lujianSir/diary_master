@@ -15,6 +15,15 @@ public class Comment {
 	private String cmdatime;// 评论的时间
 	private String cmupic;// 照片
 	private String cmusername;// 名称
+	private String creattime;// 点赞的时间
+
+	public String getCreattime() {
+		return creattime;
+	}
+
+	public void setCreattime(String creattime) {
+		this.creattime = creattime;
+	}
 
 	public String getCmupic() {
 		return cmupic;

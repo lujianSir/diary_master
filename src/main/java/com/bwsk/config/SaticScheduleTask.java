@@ -26,6 +26,7 @@ public class SaticScheduleTask {
 		EveryDay everyDay = new EveryDay();
 		everyDay.setDtime(dtime);
 		everyDay.setCreatMouth(creatMouth);
+		everyDay.setDtimerub(Utils.timeStamp());
 		int row = dailyService.insertEveryDay(everyDay);
 		if (row > 0) {
 			System.err.println("任务执行成功；执行静态定时任务时间: " + Utils.getCurrentYMD());

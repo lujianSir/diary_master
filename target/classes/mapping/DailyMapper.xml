@@ -3,6 +3,7 @@
 <mapper namespace="com.bwsk.mapper.DailyMapper">
  	 <resultMap id="EveryDayResultMap" type="com.bwsk.entity.EveryDay">
         <id property="dtime" column="dtime" />
+        <result property="dtimerub" column="dtimerub" />
         <collection property="dailyList" resultMap="otherdailyResult" />
     </resultMap>
     
@@ -431,7 +432,7 @@
 	          and a.did = #{did}
 	       	 </if>
 		</where>
-		 order by a.creattime desc  
+		 order by a.creattime desc ,c.creattime desc,e.creattime desc
    	</select>
    	
    	<!-- 通过当前项目下面所有天数下面所有的日报 -->
@@ -486,7 +487,7 @@
 				          and a.pid = #{daily.pid}
 				       	 </if>
 					 </where>
-
+					ORDER BY c.creattime desc,e.creattime desc
 				) a on c.dtime=a.dtime
 				<where>
 					<if test="dtimes!=null and dtimes !=''">
@@ -497,7 +498,7 @@
 						</foreach>
 					</if>
 				</where>
-				 ORDER BY c.dtime desc			
+				 ORDER BY c.dtime desc
    	</select>
    	
    	<!-- 查询当前日期每个项目下面有多少日报 -->
@@ -543,7 +544,7 @@
    	
    	<!-- 插入 -->
    	<insert id="insertEveryDay" parameterType="com.bwsk.entity.EveryDay">
-   		insert into everyday (dtime,creatMouth) values (#{dtime},#{creatMouth})  	
+   		insert into everyday (dtime,creatMouth,dtimerub) values (#{dtime},#{creatMouth},#{dtimerub})  	
    	</insert>
    	
    		<!-- 查询每个月的照片以及视频 -->
@@ -602,7 +603,7 @@
    	
    	<!-- 点赞添加 -->
    	<insert id="insertThumb" parameterType="com.bwsk.entity.Thumb">
-   		insert into thumb (tdid,tuid) values (#{tdid},#{tuid})
+   		insert into thumb (tdid,tuid,creattime) values (#{tdid},#{tuid},#{creattime})
    	</insert>
    	
    	<!-- 点赞删除 -->
@@ -617,7 +618,7 @@
    	
    	<!-- 添加评论 -->
    	<insert id="insertComment" parameterType="com.bwsk.entity.Comment">
-   		insert into comment (cmuid,cmdid,cmcomment,cmdatime) values (#{cmuid},#{cmdid},#{cmcomment},#{cmdatime})
+   		insert into comment (cmuid,cmdid,cmcomment,cmdatime,creattime) values (#{cmuid},#{cmdid},#{cmcomment},#{cmdatime},#{creattime})
    	</insert>
    	
    	<!-- 删除评论 -->

@@ -27,7 +27,7 @@ public class Daily {
 
 	private int attendancetody;// 今天出勤
 
-	private int attendanceoneself;// 本人出勤
+	private double attendanceoneself;// 本人出勤
 
 	private int effectivework;// 有效工作时间 1、(<2小时 ) 2、(2-4小时) 3、(4-6小时) 4、(6-8小时) 5、(>8小时)
 
@@ -173,11 +173,11 @@ public class Daily {
 		this.attendancetody = attendancetody;
 	}
 
-	public int getAttendanceoneself() {
+	public double getAttendanceoneself() {
 		return attendanceoneself;
 	}
 
-	public void setAttendanceoneself(int attendanceoneself) {
+	public void setAttendanceoneself(double attendanceoneself) {
 		this.attendanceoneself = attendanceoneself;
 	}
 

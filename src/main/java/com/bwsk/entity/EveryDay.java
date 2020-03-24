@@ -12,11 +12,21 @@ public class EveryDay {
 
 	private String dtime;
 
+	private String dtimerub;
+
 	private String creatMouth;
 
 	private int currentPeople;// 用户是否提交
 
 	private List<Daily> dailyList;
+
+	public String getDtimerub() {
+		return dtimerub;
+	}
+
+	public void setDtimerub(String dtimerub) {
+		this.dtimerub = dtimerub;
+	}
 
 	public int getCurrentPeople() {
 		return currentPeople;

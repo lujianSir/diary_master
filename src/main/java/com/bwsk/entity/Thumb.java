@@ -16,6 +16,16 @@ public class Thumb {
 
 	private String upic;// 点赞人的照片
 
+	private String creattime;// 点赞的时间
+
+	public String getCreattime() {
+		return creattime;
+	}
+
+	public void setCreattime(String creattime) {
+		this.creattime = creattime;
+	}
+
 	public String getUpic() {
 		return upic;
 	}

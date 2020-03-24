@@ -121,6 +121,7 @@ public class DailyServiceImpl implements DailyService {
 		int row = 0;
 		Thumb t = dailyMapper.queryThumb(thumb);
 		if (t == null) {// 没有就添加
+			thumb.setCreattime(Utils.getCurrentHMS());
 			row = dailyMapper.insertThumb(thumb);
 		} else {// 有就删除
 			row = dailyMapper.deleteThumb(thumb);
@@ -149,7 +150,8 @@ public class DailyServiceImpl implements DailyService {
 	@Override
 	public int insertComment(Comment comment) {
 		// TODO Auto-generated method stub
-		comment.setCmdatime(Utils.getCurrent());
+		comment.setCmdatime(Utils.getCurrentymd());
+		comment.setCreattime(Utils.getCurrentHMS());
 		return dailyMapper.insertComment(comment);
 	}
 
