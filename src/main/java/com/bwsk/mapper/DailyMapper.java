@@ -5,9 +5,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.bwsk.entity.Comment;
 import com.bwsk.entity.Daily;
 import com.bwsk.entity.EveryDay;
 import com.bwsk.entity.ProjectInfo;
+import com.bwsk.entity.Thumb;
 
 @Repository
 public interface DailyMapper {
@@ -21,6 +23,9 @@ public interface DailyMapper {
 	// 查询当前项目（模糊查询、通过ID查询）
 	public List<Daily> queryDaily(Daily daily);
 
+	// 查询当前项目（带点赞）
+	public List<Daily> queryDailyThumb(Daily daily);
+
 	// 通过当前项目下面所有天数下面所有的日报
 	public List<EveryDay> queryEveryDay(@Param("daily") Daily daily, @Param("dtimes") String[] dtimes);
 
@@ -32,4 +37,22 @@ public interface DailyMapper {
 
 	// 每天凌晨3点插入
 	public int insertEveryDay(EveryDay everyDay);
+
+	// 点赞
+	public int insertThumb(Thumb thumb);
+
+	// 点赞查询
+	public Thumb queryThumb(Thumb thumb);
+
+	// 点赞删除
+	public int deleteThumb(Thumb thumb);
+
+	// 添加评论
+	public int insertComment(Comment comment);
+
+	// 根据ID以及用户ID来删除
+	public int deleteCommentByCmidAndCmuid(Comment comment);
+
+	// 根据ID以及用户ID来查询
+	public Comment queryComment(Comment comment);
 }

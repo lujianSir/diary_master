@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bwsk.entity.Comment;
 import com.bwsk.entity.Daily;
 import com.bwsk.entity.EveryDay;
 import com.bwsk.entity.ProjectInfo;
+import com.bwsk.entity.Thumb;
 import com.bwsk.mapper.DailyMapper;
 import com.bwsk.service.DailyService;
 import com.bwsk.util.Utils;
@@ -52,9 +54,18 @@ public class DailyServiceImpl implements DailyService {
 				dailyList.clear();
 			} else {
 				for (Daily d : dailyList) {
+					List<Thumb> thumbs = d.getThumbs();
+					for (int m = 0; m < thumbs.size(); m++) {
+						int tuid = thumbs.get(m).getTuid();
+						if (tuid == daily.getUid()) {
+							d.setTstatus(1);
+						}
+					}
 					if (d.getUid() == daily.getUid()) {
 						everyDay.setCurrentPeople(1);
+
 					}
+
 				}
 			}
 		}
@@ -102,6 +113,56 @@ public class DailyServiceImpl implements DailyService {
 			}
 		}
 		return everyDays;
+	}
+
+	@Override
+	public int insertThumb(Thumb thumb) {
+		// TODO Auto-generated method stub
+		int row = 0;
+		Thumb t = dailyMapper.queryThumb(thumb);
+		if (t == null) {// 没有就添加
+			row = dailyMapper.insertThumb(thumb);
+		} else {// 有就删除
+			row = dailyMapper.deleteThumb(thumb);
+		}
+		return row;
+	}
+
+	@Override
+	public List<Daily> queryDailyThumb(Daily daily) {
+		// TODO Auto-generated method stub
+		List<Daily> list = dailyMapper.queryDailyThumb(daily);
+		for (int i = 0; i < list.size(); i++) {
+			List<Thumb> thumbs = list.get(i).getThumbs();
+			if (thumbs != null && thumbs.size() > 0) {
+				for (Thumb thumb : thumbs) {
+					int tuid = thumb.getTuid();
+					if (tuid == daily.getUid()) {
+						list.get(i).setTstatus(1);
+					}
+				}
+			}
+		}
+		return list;
+	}
+
+	@Override
+	public int insertComment(Comment comment) {
+		// TODO Auto-generated method stub
+		comment.setCmdatime(Utils.getCurrent());
+		return dailyMapper.insertComment(comment);
+	}
+
+	@Override
+	public int deleteCommentByCmidAndCmuid(Comment comment) {
+		// TODO Auto-generated method stub
+		return dailyMapper.deleteCommentByCmidAndCmuid(comment);
+	}
+
+	@Override
+	public Comment queryComment(Comment comment) {
+		// TODO Auto-generated method stub
+		return dailyMapper.queryComment(comment);
 	}
 
 }

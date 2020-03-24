@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.bwsk.entity.Comment;
 import com.bwsk.entity.Daily;
 import com.bwsk.entity.EveryDay;
 import com.bwsk.entity.ProjectInfo;
+import com.bwsk.entity.Thumb;
 import com.bwsk.service.DailyService;
 import com.bwsk.util.Result;
 import com.bwsk.util.Utils;
@@ -116,6 +118,66 @@ public class DailyController {
 	}
 
 	/**
+	 * 单个查询返回点赞
+	 * 
+	 * @param daily
+	 * @return
+	 */
+	@RequestMapping("/queryDailyThumb")
+	public Result<?> queryDailyThumb(Daily daily) {
+		List<Daily> list = dailyService.queryDailyThumb(daily);
+		return Result.success(list);
+	}
+
+	/**
+	 * 添加或者删除点赞
+	 * 
+	 * @param thumb
+	 * @return
+	 */
+	@RequestMapping("/insertThumb")
+	public Result<?> insertThumb(Thumb thumb) {
+		int row = dailyService.insertThumb(thumb);
+		return Result.success(row);
+	}
+
+	/**
+	 * 添加评论
+	 * 
+	 * @param comment
+	 * @return
+	 */
+	@RequestMapping("/insertComment")
+	public Result<?> insertComment(Comment comment) {
+		int row = dailyService.insertComment(comment);
+		return Result.success(row);
+	}
+
+	/**
+	 * 查询是否是自己的评论
+	 * 
+	 * @param comment
+	 * @return
+	 */
+	@RequestMapping("/queryComment")
+	public Result<?> queryComment(Comment comment) {
+		Comment c = dailyService.queryComment(comment);
+		return Result.success(c);
+	}
+
+	/**
+	 * 通过评论ID删除评论
+	 * 
+	 * @param comment
+	 * @return
+	 */
+	@RequestMapping("/deleteCommentByCmidAndCmuid")
+	public Result<?> deleteCommentByCmidAndCmuid(Comment comment) {
+		int row = dailyService.deleteCommentByCmidAndCmuid(comment);
+		return Result.success(row);
+	}
+
+	/**
 	 * 查询每个月的照片以及视频
 	 * 
 	 * @param daily
@@ -146,16 +208,14 @@ public class DailyController {
 				}
 				dailys.get(j).setDpics(list1);
 
-				List list2 = new ArrayList();
+				List<Map<String, Object>> list2 = new ArrayList<Map<String, Object>>();
 				String dvoideo = dailys.get(j).getDvoideo();
 				JSONArray jsonArray = JSONArray.parseArray(new String(dvoideo));
 				for (int n = 0; n < jsonArray.size(); n++) {
-					Map m = new HashMap();
+					Map<String, Object> m = new HashMap<String, Object>();
 					JSONObject o = (JSONObject) jsonArray.get(n);
 					Map<String, Object> map = o;
 					for (Entry<String, Object> entry : map.entrySet()) {
-						String value = (String) entry.getValue();
-						System.out.println(entry.getKey() + "=" + entry.getValue());
 						m.put(entry.getKey(), entry.getValue());
 					}
 					list2.add(m);

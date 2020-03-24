@@ -71,6 +71,36 @@ public class Daily {
 
 	private String creatMouth;// 用户提交的月份
 
+	private List<Thumb> thumbs;// 点赞的人
+
+	private List<Comment> comments;// 评论的人数
+
+	private int tstatus;// 点赞
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public int getTstatus() {
+		return tstatus;
+	}
+
+	public void setTstatus(int tstatus) {
+		this.tstatus = tstatus;
+	}
+
+	public List<Thumb> getThumbs() {
+		return thumbs;
+	}
+
+	public void setThumbs(List<Thumb> thumbs) {
+		this.thumbs = thumbs;
+	}
+
 	public String getEquipments() {
 		return equipments;
 	}
