@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bwsk.mapper.StatisticMapper">
+ 
+	 <!--  查询统计日期 -->
+   <select id="queryWeacher" resultType="com.bwsk.entity.Statistic">
+   		SELECT
+			a.name,	
+			IFNULL(t1.count1, 0) value
+		FROM
+			weather a
+		LEFT JOIN (
+			SELECT
+				count(weather) AS count1,
+				weather
+			FROM
+				daily
+			<where>
+				<if test="pid!=null and pid!='' ">
+					and pid =#{pid}
+				</if>
+				<if test="creatMouth!=null and creatMouth!='' ">
+					and creatMouth =#{creatMouth}
+				</if>
+				<if test="uid !=null and uid !='' ">
+					and uid=#{uid}
+				</if>	
+			</where>			 				
+			GROUP BY
+				weather
+		) t1 ON a.id = t1.weather
+   </select>
+   
+   <!-- 统计日报 -->
+   <select id="queryAttendancetody" resultType="com.bwsk.entity.Statistic">
+   		SELECT
+			 RIGHT(a.dtime,6) name,	
+			IFNULL(t1.count1, 0) value
+		FROM
+			everyday a
+		LEFT JOIN (
+			SELECT
+				sum(attendancetody) AS count1,
+				dtime
+			FROM
+				daily
+				<where>
+					<if test="pid!=null and pid!='' ">
+						and pid =#{pid}
+					</if>
+					<if test="creatMouth!=null and creatMouth!='' ">
+						and creatMouth =#{creatMouth}
+					</if>
+					<if test="uid !=null and uid !='' ">
+						and uid=#{uid}
+					</if>	
+				</where>		
+			GROUP BY
+				dtime
+			) t1 ON a.dtime = t1.dtime
+   			<where>
+   				<if test="creatMouth!=null and creatMouth!='' ">
+					and a.creatMouth =#{creatMouth}
+				</if>
+   			</where>
+   </select>
+   
+   <!-- 项目信息 -->
+   <select id="queryDailyStatistic" resultType="com.bwsk.entity.DailyStatistic">
+   		SELECT
+			a.*, (
+				SELECT
+					count(dtime)
+				FROM
+					(
+						SELECT
+							dtime
+						FROM
+							daily
+						<where>
+							<if test="pid!=null and pid!='' ">
+								and pid =#{pid}
+							</if>
+							<if test="creatMouth!=null and creatMouth!='' ">
+								and creatMouth =#{creatMouth}
+							</if>
+							<if test="uid !=null and uid !='' ">
+								and uid=#{uid}
+							</if>	
+						</where>
+						GROUP BY
+							dtime
+					) a
+			) dailyTody,
+			(
+				SELECT
+					count(did)
+				FROM
+					daily 
+				<where>
+					<if test="pid!=null and pid!='' ">
+						and pid =#{pid}
+					</if>
+					<if test="creatMouth!=null and creatMouth!='' ">
+						and creatMouth =#{creatMouth}
+					</if>
+					<if test="uid !=null and uid !='' ">
+						and uid=#{uid}
+					</if>	
+				</where>
+			) dailyTotal,
+			(
+				SELECT
+					sum(attendancetody)
+				FROM
+					daily 
+				<where>
+					<if test="pid!=null and pid!='' ">
+						and pid =#{pid}
+					</if>
+					<if test="creatMouth!=null and creatMouth!='' ">
+						and creatMouth =#{creatMouth}
+					</if>
+					<if test="uid !=null and uid !='' ">
+						and uid=#{uid}
+					</if>	
+				</where>
+			) totalPeople
+		FROM
+			project a
+   		<where>
+			<if test="pid!=null and pid!='' ">
+				and a.pid =#{pid}
+			</if>			
+		</where>
+   </select>
+</mapper> 

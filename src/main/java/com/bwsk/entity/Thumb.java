@@ -38,12 +38,12 @@ public class Thumb {
 		return tid;
 	}
 
-	public void setTid(int tid) {
-		this.tid = tid;
-	}
-
 	public int getTdid() {
 		return tdid;
+	}
+
+	public void setTid(int tid) {
+		this.tid = tid;
 	}
 
 	public void setTdid(int tdid) {
