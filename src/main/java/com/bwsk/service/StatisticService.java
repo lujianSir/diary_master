@@ -16,4 +16,10 @@ public interface StatisticService {
 
 	// 项目统计
 	List<DailyStatistic> queryDailyStatistic(Daily daily);
+
+	// 个人统计
+	List<DailyStatistic> queryDailyStatisticByUid(Daily daily);
+
+	// 个人日报查询
+	List<Daily> queryDailyByUid(Daily daily);
 }

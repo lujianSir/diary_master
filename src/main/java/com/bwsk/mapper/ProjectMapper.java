@@ -21,4 +21,13 @@ public interface ProjectMapper {
 
 	// 查询所有的项目
 	public List<Project> queryProject(Project project);
+
+	// 删除项目
+	public int deleteProject(Project project);
+
+	// 删除项目对应的日报
+	public void deleteDailyByPid(Project project);
+
+	// 删除项目对应的绑定人员
+	public void deleteprojectuser(Project project);
 }

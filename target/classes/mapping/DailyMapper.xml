@@ -536,7 +536,15 @@
 				 b.weixin
 				FROM
 					daily a
-				LEFT JOIN project b ON a.pid = b.pid  where a.dtime	=#{dtime} 
+				LEFT JOIN project b ON a.pid = b.pid 
+				<where>
+					<if test="dtime!=null and dtime!=''">
+						and a.dtime	=#{dtime} 
+					</if>
+					<if test="did!=null and did!=''">
+						and a.uid=#{did} 
+					</if>
+				</where> 
 				 order by b.creattime desc    
 				) b on a.pid=b.pid LEFT JOIN projectuser c on a.pid=c.pid 
 				where c.uid=#{uid}	ORDER BY a.creattime desc

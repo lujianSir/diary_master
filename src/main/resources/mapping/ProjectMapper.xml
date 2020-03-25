@@ -258,5 +258,17 @@
   		</where>
   		 order by creattime desc  		
    	</select>
-
+   	
+   	<!-- 删除项目 -->
+	<delete id="deleteProject" parameterType="com.bwsk.entity.Project">
+		delete from project where pid=#{pid}
+	</delete>
+	
+	<delete id="deleteDailyByPid" parameterType="com.bwsk.entity.Project">
+		delete from daily where pid=#{pid}
+	</delete>
+	
+	<delete id="deleteprojectuser" parameterType="com.bwsk.entity.Project">
+		delete from projectuser where pid=#{pid}
+	</delete>
 </mapper>

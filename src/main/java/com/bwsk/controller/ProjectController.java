@@ -70,4 +70,15 @@ public class ProjectController {
 		return Result.success(list);
 	}
 
+	/**
+	 * 删除项目
+	 * 
+	 * @param project
+	 * @return
+	 */
+	@RequestMapping("/deleteProject")
+	public Result<?> deleteProject(Project project) {
+		int row = projectService.deleteProject(project);
+		return Result.success(row);
+	}
 }

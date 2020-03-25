@@ -77,6 +77,16 @@ public class Daily {
 
 	private int tstatus;// 点赞
 
+	private String weixin;// 群聊
+
+	public String getWeixin() {
+		return weixin;
+	}
+
+	public void setWeixin(String weixin) {
+		this.weixin = weixin;
+	}
+
 	public List<Comment> getComments() {
 		return comments;
 	}

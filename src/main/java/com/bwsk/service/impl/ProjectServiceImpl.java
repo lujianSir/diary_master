@@ -51,4 +51,12 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectMapper.queryProject(project);
 	}
 
+	@Override
+	public int deleteProject(Project project) {
+		// TODO Auto-generated method stub
+		projectMapper.deleteDailyByPid(project);
+		projectMapper.deleteprojectuser(project);
+		return projectMapper.deleteProject(project);
+	}
+
 }
