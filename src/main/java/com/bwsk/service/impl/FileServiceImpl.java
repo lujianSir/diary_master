@@ -23,7 +23,7 @@ public class FileServiceImpl implements FileService {
 		// TODO Auto-generated method stub
 		if (!file.isEmpty()) {
 			try {
-				// 文件存放服务端的位置
+				// 文件1存放服务端的位置
 				File dir = null;
 				long now = System.currentTimeMillis();
 				String filesuffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
