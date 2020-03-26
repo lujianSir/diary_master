@@ -131,6 +131,10 @@
    		insert into projectuser (pid,uid) values (#{pid},#{uid});
    </insert>
    
+   <select id="queryProjectUser" resultType="com.bwsk.entity.ProjectUser">
+   		select * from projectuser where pid=#{pid} and uid=#{uid}
+   </select>
+   
    <!-- 修改用户 -->
    <update id="updateProject"  parameterType="com.bwsk.entity.Project">
    		update project 

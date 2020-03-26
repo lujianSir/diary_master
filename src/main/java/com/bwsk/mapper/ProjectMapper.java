@@ -16,6 +16,9 @@ public interface ProjectMapper {
 	// 项目与用户绑定
 	public int insertProjectUser(ProjectUser projectuser);
 
+	// 查询是否绑定
+	public ProjectUser queryProjectUser(ProjectUser projectuser);
+
 	// 修改项目
 	public int updateProject(Project project);
 

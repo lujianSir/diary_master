@@ -51,7 +51,7 @@ public class MoneyController {
 			}
 			collectionMoney.setMoney(new BigDecimal(m.get("money").toString()));
 			collectionMoney.setMtime(m.get("date").toString());
-			collectionMoney.setMcomment(m.get("mcomment").toString());
+			collectionMoney.setMcomment(m.get("content1").toString());
 			collectionMoney.setMstatus(Integer.parseInt(m.get("status").toString()));
 			collectionMoney.setPid(pid);
 			list.add(collectionMoney);

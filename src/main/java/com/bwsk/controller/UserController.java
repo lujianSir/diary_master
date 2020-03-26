@@ -1,16 +1,21 @@
 package com.bwsk.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alibaba.fastjson.JSONObject;
 import com.bwsk.entity.User;
 import com.bwsk.service.UserService;
+import com.bwsk.util.AesCbcUtil;
+import com.bwsk.util.HttpRequest;
 import com.bwsk.util.Result;
-import com.bwsk.util.WeChatUtil;
+
+import net.sf.json.JSONObject;
 
 /**
  * 用户相关的接口
@@ -81,29 +86,100 @@ public class UserController {
 	 * @param code
 	 * @return
 	 */
-	@RequestMapping("/getWxOpineId")
-	public Result<?> getWxOpineId(String code, User user) {
-		// 微信小程序ID
-		String appid = "";
-		// 微信小程序秘钥
-		String secret = "";
+//	@RequestMapping("/getWxOpineId")
+//	public Result<?> getWxOpineId(String code, User user) {
+//		// 微信小程序ID
+//		String appid = "wx05797fdcc1a18a71";
+//		// 微信小程序秘钥
+//		String secret = "f7480871036eb66ce645911630c7fa63";
+//
+//		// 根据小程序穿过来的code想这个url发送请求
+//		String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid + "&secret=" + secret + "&js_code="
+//				+ code + "&grant_type=authorization_code";
+//		// 发送请求，返回Json字符串
+//		String str = WeChatUtil.httpRequest(url, "GET", null);
+//		// 转成Json对象 获取openid
+//		JSONObject jsonObject = JSONObject.parseObject(str);
+//
+//		// 我们需要的openid，在一个小程序中，openid是唯一的
+//		String openid = jsonObject.get("openid").toString();
+//		user.setWxid(openid);
+//		User u = userService.queryUserByWxIdOrUid(user);// 查询是否存在
+//		if (u == null) {
+//			userService.insertOrUpdateUser(user);// 不存在则添加
+//			u = userService.queryUserByWxIdOrUid(user);
+//		}
+//		return Result.success(u.getUid());
+//	}
 
-		// 根据小程序穿过来的code想这个url发送请求
-		String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid + "&secret=" + secret + "&js_code="
-				+ code + "&grant_type=authorization_code";
-		// 发送请求，返回Json字符串
-		String str = WeChatUtil.httpRequest(url, "GET", null);
-		// 转成Json对象 获取openid
-		JSONObject jsonObject = JSONObject.parseObject(str);
-
-		// 我们需要的openid，在一个小程序中，openid是唯一的
-		String openid = jsonObject.get("openid").toString();
-		user.setWxid(openid);
-		User u = userService.queryUserByWxIdOrUid(user);// 查询是否存在
-		if (u == null) {
-			userService.insertOrUpdateUser(user);// 不存在则添加
-			u = userService.queryUserByWxIdOrUid(user);
+	/**
+	 * 解密
+	 * 
+	 * @param encryptedData
+	 * @param iv
+	 * @param code
+	 * @return
+	 */
+	@RequestMapping(value = "/getOpenGid", method = RequestMethod.GET)
+	public Map getOpenGid(String encryptedData, String iv, String code, String wxspAppid, String wxspSecret) {
+		Map map = new HashMap();
+		// 登录凭证不能为空
+		if (code == null || code.length() == 0) {
+			map.put("status", 0);
+			map.put("msg", "code 不能为空");
+			return map;
 		}
-		return Result.success(u.getUid());
+//		// 小程序唯一标识 (在微信小程序管理后台获取)
+//		String wxspAppid = "wx05797fdcc1a18a71";
+//		// 小程序的 app secret (在微信小程序管理后台获取)
+//		String wxspSecret = "6de53382f8d8ac8c67dcc179a59123a3";
+		// 授权（必填）
+		String grant_type = "authorization_code";
+
+		//////////////// 1、向微信服务器 使用登录凭证 code 获取 session_key 和 openid ////////////////
+		// 请求参数
+		String params = "appid=" + wxspAppid + "&secret=" + wxspSecret + "&js_code=" + code + "&grant_type="
+				+ grant_type;
+		// 发送请求
+		String sr = HttpRequest.sendGet("https://api.weixin.qq.com/sns/jscode2session", params);
+		// 解析相应内容（转换成json对象）
+		JSONObject json = JSONObject.fromObject(sr);
+		// 获取会话密钥（session_key）
+		String session_key = json.get("session_key").toString();
+		// 用户的唯一标识（openid）
+		String openid = (String) json.get("openid");
+
+		//////////////// 2、对encryptedData加密数据进行AES解密 ////////////////
+		try {
+			String result = AesCbcUtil.decrypt(encryptedData, session_key, iv, "UTF-8");
+			if (null != result && result.length() > 0) {
+				map.put("status", 1);
+				map.put("msg", "解密成功");
+				JSONObject resultInfo = JSONObject.fromObject(result);
+				map.put("resData", resultInfo);
+				map.put("openid", openid);
+				return map;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		map.put("status", 0);
+		map.put("msg", "解密失败");
+		return map;
 	}
+
+	/**
+	 * 群聊绑定
+	 * 
+	 * @param pid
+	 * @param openGid
+	 * @param openid
+	 * @return
+	 */
+	@RequestMapping("/insertOpenGid")
+	public Result<?> insertOpenGid(int pid, String openGid, String openid) {
+		int row = userService.insertOpenGid(pid, openGid, openid);
+		return Result.success(row);
+	}
+
 }

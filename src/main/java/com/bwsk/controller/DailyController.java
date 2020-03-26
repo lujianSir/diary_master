@@ -202,11 +202,13 @@ public class DailyController {
 				List<String> list1 = new ArrayList<String>();
 				String dpic = dailys.get(j).getDpic();
 				dpic = StringUtils.strip(dpic, "[]");
-				String[] dpics = dpic.split(",");
-				for (int m = 0; m < dpics.length; m++) {
-					list1.add(dpics[m].replace("\"", ""));
+				if (dpic != null && !dpic.equals("")) {
+					String[] dpics = dpic.split(",");
+					for (int m = 0; m < dpics.length; m++) {
+						list1.add(dpics[m].replace("\"", ""));
+					}
+					dailys.get(j).setDpics(list1);
 				}
-				dailys.get(j).setDpics(list1);
 
 				List<Map<String, Object>> list2 = new ArrayList<Map<String, Object>>();
 				String dvoideo = dailys.get(j).getDvoideo();

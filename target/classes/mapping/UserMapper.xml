@@ -3,7 +3,7 @@
 <mapper namespace="com.bwsk.mapper.UserMapper">
  
    <!--添加用户  -->
-   <insert id="insertUser" parameterType="com.bwsk.entity.User">
+   <insert id="insertUser" parameterType="com.bwsk.entity.User" useGeneratedKeys="true" keyProperty="uid">
    		insert into user 
    		<trim prefix="(" suffix=")" suffixOverrides=",">
 	   		<if test="username != null and username!=''">

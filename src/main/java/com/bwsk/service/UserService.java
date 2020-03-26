@@ -14,4 +14,7 @@ public interface UserService {
 
 	// 通过项目ID以及用户ID查询用户
 	public List<User> queryUserByUidAndPid(int uid, int pid);
+
+	// 绑定用户信息
+	public int insertOpenGid(int pid, String openGid, String openid);
 }
