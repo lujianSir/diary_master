@@ -230,7 +230,7 @@ public class DailyController {
 	}
 
 	/**
-	 * 查询是否绑定
+	 * 查询是否绑定1
 	 * 
 	 * @param did
 	 * @param uid
