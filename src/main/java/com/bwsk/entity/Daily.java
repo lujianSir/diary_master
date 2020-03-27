@@ -79,6 +79,16 @@ public class Daily {
 
 	private String weixin;// 群聊
 
+	private String flag;// 是否是项目的人
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+
 	public String getWeixin() {
 		return weixin;
 	}

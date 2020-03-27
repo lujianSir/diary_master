@@ -228,4 +228,28 @@ public class DailyController {
 		}
 		return Result.success(list);
 	}
+
+	/**
+	 * 查询是否绑定
+	 * 
+	 * @param did
+	 * @param uid
+	 * @return
+	 */
+	@RequestMapping("/queryDailyByDidAndUid")
+	public Result<?> queryDailyByDidAndUid(int did, int uid) {
+		Daily daily = dailyService.queryDailyByDidAndUid(did, uid);
+		List<String> list1 = new ArrayList<String>();
+		String dpic = daily.getDpic();
+		dpic = StringUtils.strip(dpic, "[]");
+		if (dpic != null && !dpic.equals("")) {
+			String[] dpics = dpic.split(",");
+			for (int m = 0; m < dpics.length; m++) {
+				list1.add(dpics[m].replace("\"", ""));
+			}
+			daily.setDpics(list1);
+		}
+		return Result.success(daily);
+	}
+
 }

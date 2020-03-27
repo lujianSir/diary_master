@@ -55,4 +55,8 @@ public interface DailyMapper {
 
 	// 根据ID以及用户ID来查询
 	public Comment queryComment(Comment comment);
+
+	// 分享日报
+	public Daily queryDailyByDidAndUid(int did, int uid);
+
 }

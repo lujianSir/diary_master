@@ -88,6 +88,7 @@
 	        <result property="creattime" column="creattime" />
 	        <result property="creatMouth" column="creatMouth" />
 	        <result property="pname" column="pname" />
+	        <result property="flag" column="flag" />
 	        <collection property="thumbs" resultMap="thumbResult" />
 	        <collection property="comments" resultMap="commentResult" />
 	    </resultMap>
@@ -637,5 +638,56 @@
    	<!-- 查询评论 -->
    	<select id="queryComment" resultType="com.bwsk.entity.Comment">
    		select * from comment where cmid=#{cmid} and cmuid=#{cmuid}
+   	</select>
+   	
+   	<!-- 查询是否是群聊的人 -->
+   	<select id="queryDailyByDidAndUid" resultMap="otherdailyResult">  		
+		select
+				a.did,
+				a.uid,
+				a.username,
+				a.uposition,
+				a.utelphone,
+				a.weather,
+				CASE WHEN a.weather = 1 THEN '晴' WHEN a.weather = 2 THEN '阴' WHEN a.weather = 3 THEN '雨' ELSE '未知' END weatherName,
+				 a.attendancetody,
+				 a.attendanceoneself,
+				 a.effectivework,
+				 CASE WHEN a.effectivework = 1 THEN '小于2小时' WHEN a.effectivework = 2 THEN '2-4小时' WHEN a.effectivework = 3 THEN '4-6小时' WHEN a.effectivework = 4 THEN '6-8小时' ELSE '大于8小时' END effectiveworkName,
+				 a.satisfactiondegree,
+				 CASE WHEN a.satisfactiondegree = 1 THEN '很不满意' WHEN a.satisfactiondegree = 2 THEN	'不太满意' WHEN a.satisfactiondegree = 3 THEN	'满意' WHEN a.satisfactiondegree = 4 THEN	'比较满意'ELSE '非常满意'END satisfactiondegreeName,
+				 a.equipments,
+				 a.workcomment,
+				 a.abnorname,
+				 a.dunning,
+				 a.dunningpic,
+				 a.amountody,
+				 a.invoicetody,
+				 a.dpic,
+				 a.dvoideo,
+				 a.dtime,
+				 a.pid,
+				 a.creattime,
+				 a.creatMouth,
+				 b.pname,	
+				 c.tid,
+				 c.tdid,
+				 c.tuid,
+				 d.upic,
+				e.cmcomment,
+				e.cmdatime,
+				e.cmdid,
+				e.cmid,
+				e.cmuid,
+				f.upic cmupic,
+				f.username cmusername,
+		(SELECT uid from projectuser where pid in (select pid from daily where did=#{did}) and uid=#{uid}) flag
+				FROM
+					daily a
+				LEFT JOIN project b ON a.pid = b.pid
+				LEFT JOIN thumb c on a.did=c.tdid
+				LEFT JOIN user d on c.tuid= d.uid
+				LEFT JOIN comment e on a.did=e.cmdid
+				LEFT JOIN user f on e.cmuid=f.uid where a.did = #{did}  order by a.creattime desc ,c.creattime desc,e.creattime desc
    	</select>
 </mapper>

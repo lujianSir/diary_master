@@ -167,4 +167,10 @@ public class DailyServiceImpl implements DailyService {
 		return dailyMapper.queryComment(comment);
 	}
 
+	@Override
+	public Daily queryDailyByDidAndUid(int did, int uid) {
+		// TODO Auto-generated method stub
+		return dailyMapper.queryDailyByDidAndUid(did, uid);
+	}
+
 }
