@@ -18,4 +18,7 @@ public interface UserService {
 	// 绑定群组信息
 	public int insertOpenGid(int pid, String openGid, String openid);
 
+	// 绑定群组信息
+	public int insertOpenGidOther(int pid, String openid);
+
 }

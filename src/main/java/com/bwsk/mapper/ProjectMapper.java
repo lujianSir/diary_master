@@ -16,6 +16,9 @@ public interface ProjectMapper {
 	// 项目与用户绑定
 	public int insertProjectUser(ProjectUser projectuser);
 
+	// 查询项目是否绑定
+	public Project queryProjecByPid(int pid);
+
 	// 查询是否绑定
 	public ProjectUser queryProjectUser(ProjectUser projectuser);
 

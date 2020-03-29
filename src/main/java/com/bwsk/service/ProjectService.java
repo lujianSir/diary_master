@@ -14,4 +14,7 @@ public interface ProjectService {
 
 	// 删除项目
 	public int deleteProject(Project project);
+
+	// 查询项目是否绑定
+	public Project queryProjecByPid(int pid);
 }

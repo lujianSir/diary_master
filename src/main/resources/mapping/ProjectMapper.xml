@@ -135,6 +135,10 @@
    		select * from projectuser where pid=#{pid} and uid=#{uid}
    </select>
    
+    <select id="queryProjecByPid" resultType="com.bwsk.entity.Project">
+   		select * from project where pid=#{pid} 
+   </select>
+   
    <!-- 修改用户 -->
    <update id="updateProject"  parameterType="com.bwsk.entity.Project">
    		update project 

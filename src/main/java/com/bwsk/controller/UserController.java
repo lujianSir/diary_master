@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bwsk.entity.Project;
 import com.bwsk.entity.User;
+import com.bwsk.service.ProjectService;
 import com.bwsk.service.UserService;
 import com.bwsk.util.AesCbcUtil;
 import com.bwsk.util.HttpRequest;
@@ -29,6 +31,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private ProjectService projectService;
 
 	/**
 	 * 添加或者修改用户信息
@@ -178,7 +183,21 @@ public class UserController {
 	 */
 	@RequestMapping("/insertOpenGid")
 	public Result<?> insertOpenGid(int pid, String openGid, String openid) {
-		int row = userService.insertOpenGid(pid, openGid, openid);
+		Project project = projectService.queryProjecByPid(pid);
+		User user = new User();
+		user.setWxid(openid);
+		user = userService.queryUserByWxIdOrUid(user);
+		int row = 0;
+		if (project.getWeixin() == null || project.getWeixin().equals("")) {
+			if (project.getUid() == user.getUid()) {
+				row = userService.insertOpenGid(pid, openGid, openid);
+			} else {
+				row = userService.insertOpenGidOther(pid, openid);
+			}
+		} else {
+			row = userService.insertOpenGid(pid, openGid, openid);
+		}
+
 		return Result.success(row);
 	}
 

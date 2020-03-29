@@ -77,4 +77,29 @@ public class UserServiceImpl implements UserService {
 		return row;
 	}
 
+	@Override
+	public int insertOpenGidOther(int pid, String openid) {
+		// TODO Auto-generated method stub
+		int row = 0;
+		User user = new User();
+		user.setWxid(openid);
+		User u = userMapper.queryUserByWxIdOrUid(user);
+		ProjectUser projectUser = new ProjectUser();
+		if (u == null) {
+			String currentTime = Utils.getCurrent();
+			user.setCreattime(currentTime);
+			userMapper.insertUser(user);
+			projectUser.setUid(user.getUid());
+		} else {
+			projectUser.setUid(u.getUid());
+		}
+		projectUser.setPid(pid);
+		ProjectUser pj = projectMapper.queryProjectUser(projectUser);
+		if (pj == null) {
+			projectMapper.insertProjectUser(projectUser);
+		}
+
+		return row;
+	}
+
 }
