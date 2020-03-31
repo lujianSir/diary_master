@@ -2,6 +2,42 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bwsk.mapper.ProjectMapper">
  
+ 	<resultMap id="projectResult" type="com.bwsk.entity.Project">
+	        <id property="pid" column="pid" />
+	        <result property="pname" column="pname" />
+	        <result property="pabbreviation" column="pabbreviation" />
+	        <result property="pnumber" column="pnumber" />
+	        <result property="paddress" column="paddress" />
+	        <result property="pstatus" column="pstatus" />
+	        <result property="pstatusName" column="pstatusName" />
+	        <result property="cid" column="cid" />
+	        <result property="pcompany" column="pcompany" />
+	        <result property="ptype" column="ptype" />
+	        <result property="ptypeName" column="ptypeName" />
+	        <result property="contractamount" column="contractamount" />
+	        <result property="acceptedamount" column="acceptedamount" />
+	        <result property="acceptedinvoice" column="acceptedinvoice" />
+	        <result property="totalartificial" column="totalartificial" />
+	        <result property="approachDay" column="approachDay" />
+	        <result property="completeDay" column="completeDay" />
+	        <result property="paycondition" column="paycondition" />
+	        <result property="fineremarks" column="fineremarks" />
+	        <result property="creattime" column="creattime" />
+	        <result property="uid" column="uid" />
+	        <result property="userpower" column="userpower" />
+	        <result property="materialpower" column="materialpower" />
+	        <result property="weixin" column="weixin" />
+	        <result property="username" column="username" />
+	        <result property="cabbreviation" column="cabbreviation" />
+	        <collection property="userinfos" resultMap="userInfoResult" />
+	    </resultMap>
+ 
+ 	<resultMap id="userInfoResult" type="com.bwsk.entity.UserInfo">
+ 			<id property="userid" column="userid" />
+	        <result property="userpic" column="userpic" />
+ 	</resultMap>
+ 
+ 
    <!--添加用户  -->
    <insert id="insertProject" parameterType="com.bwsk.entity.Project" useGeneratedKeys="true" keyProperty="pid">
    		insert into project 
@@ -205,7 +241,7 @@
    </update>
    	
    	<!-- 多种条件查询 -->
-   	<select id="queryProject" parameterType="com.bwsk.entity.Project" resultType="com.bwsk.entity.Project">
+   	<select id="queryProject" parameterType="com.bwsk.entity.Project" resultMap="projectResult">
    		SELECT
 			DISTINCT(b.pid),
 			b.pname,
@@ -235,12 +271,16 @@
 			b.weixin,
 			c.username,
 			c.upic,
-			d.cabbreviation
+			d.cabbreviation,
+			e.uid userid,
+			f.upic  userpic
 		FROM
 			projectuser a
 		LEFT JOIN project b ON a.pid = b.pid
 		LEFT JOIN USER c ON b.uid = c.uid
 		LEFT JOIN company d on b.cid=d.cid
+		LEFT JOIN projectuser e on b.pid=e.pid
+		LEFT JOIN USER f on e.uid=f.uid
 		<where>
        		 <if test="pid != null and pid != ''">
 	          and  b.pid = #{pid}

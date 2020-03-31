@@ -1,6 +1,7 @@
 package com.bwsk.entity;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * 项目实体
@@ -63,6 +64,16 @@ public class Project {
 	private String userpower;// 项目负责人(编辑项目、收款管理)
 
 	private String materialpower;// 计划负责人(计划管理)
+
+	private List<UserInfo> userinfos;// 项目绑定的人
+
+	public List<UserInfo> getUserinfos() {
+		return userinfos;
+	}
+
+	public void setUserinfos(List<UserInfo> userinfos) {
+		this.userinfos = userinfos;
+	}
 
 	public String getUsername() {
 		return username;
