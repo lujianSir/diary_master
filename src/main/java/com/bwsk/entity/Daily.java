@@ -15,6 +15,10 @@ public class Daily {
 
 	private int uid;// 对应的用户ID
 
+	private String upic;// 用户对于的图片
+
+	private String udpic;/// 用户对应的图片
+
 	private String username;// 上报的人员名称
 
 	private String uposition;// 职位
@@ -38,6 +42,8 @@ public class Daily {
 	private String satisfactiondegreeName;
 
 	private String equipments;// 设备 (名称以及数量，以-分割比如：挖掘机-2，多个以；号分割：:挖掘机-2;钻头-1)
+
+	private List listequipments;// 设备数组
 
 	private String workcomment;// 工作内容
 
@@ -80,6 +86,30 @@ public class Daily {
 	private String weixin;// 群聊
 
 	private String flag;// 是否是项目的人
+
+	public List getListequipments() {
+		return listequipments;
+	}
+
+	public void setListequipments(List listequipments) {
+		this.listequipments = listequipments;
+	}
+
+	public String getUdpic() {
+		return udpic;
+	}
+
+	public void setUdpic(String udpic) {
+		this.udpic = udpic;
+	}
+
+	public String getUpic() {
+		return upic;
+	}
+
+	public void setUpic(String upic) {
+		this.upic = upic;
+	}
 
 	public String getFlag() {
 		return flag;

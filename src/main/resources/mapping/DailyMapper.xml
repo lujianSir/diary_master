@@ -57,12 +57,14 @@
         <result property="creattime" column="creattime" />
         <result property="creatMouth" column="creatMouth" />
         <result property="pname" column="pname" />
+        <result property="upic" column="upic" />
     </resultMap>
  
  
 	 <resultMap id="otherdailyResult" type="com.bwsk.entity.Daily">
 	        <id property="did" column="did" />
 	        <result property="uid" column="uid" />
+	        <result property="udpic" column="udpic" />
 	        <result property="ustatus" column="ustatus" />
 	        <result property="username" column="username" />
 	        <result property="uposition" column="uposition" />
@@ -342,7 +344,7 @@
 		 a.effectivework,
 		 CASE WHEN a.effectivework = 1 THEN '小于2小时' WHEN a.effectivework = 2 THEN '2-4小时' WHEN a.effectivework = 3 THEN '4-6小时' WHEN a.effectivework = 4 THEN '6-8小时' ELSE '大于8小时' END effectiveworkName,
 		 a.satisfactiondegree,
-		 CASE WHEN a.satisfactiondegree = 1 THEN '很不满意' WHEN a.satisfactiondegree = 2 THEN	'不太满意' WHEN a.satisfactiondegree = 3 THEN	'满意' WHEN a.satisfactiondegree = 4 THEN	'比较满意'ELSE '非常满意'END satisfactiondegreeName,
+		 CASE WHEN a.satisfactiondegree = 1 THEN '很不满意' WHEN a.satisfactiondegree = 2 THEN	'不太满意' WHEN a.satisfactiondegree = 3 THEN	'满意' WHEN a.satisfactiondegree = 4 THEN	'比较满意'  WHEN a.satisfactiondegree = 5 THEN'非常满意' ELSE ''END satisfactiondegreeName,
 		 a.equipments,
 		 a.workcomment,
 		 a.abnorname,
@@ -385,6 +387,7 @@
    	select
 		a.did,
 		a.uid,
+		m.upic udpic,
 		a.username,
 		a.uposition,
 		a.utelphone,
@@ -395,7 +398,7 @@
 		 a.effectivework,
 		 CASE WHEN a.effectivework = 1 THEN '小于2小时' WHEN a.effectivework = 2 THEN '2-4小时' WHEN a.effectivework = 3 THEN '4-6小时' WHEN a.effectivework = 4 THEN '6-8小时' ELSE '大于8小时' END effectiveworkName,
 		 a.satisfactiondegree,
-		 CASE WHEN a.satisfactiondegree = 1 THEN '很不满意' WHEN a.satisfactiondegree = 2 THEN	'不太满意' WHEN a.satisfactiondegree = 3 THEN	'满意' WHEN a.satisfactiondegree = 4 THEN	'比较满意'ELSE '非常满意'END satisfactiondegreeName,
+		 CASE WHEN a.satisfactiondegree = 1 THEN '很不满意' WHEN a.satisfactiondegree = 2 THEN	'不太满意' WHEN a.satisfactiondegree = 3 THEN	'满意' WHEN a.satisfactiondegree = 4 THEN	'比较满意' WHEN a.satisfactiondegree = 5 THEN '非常满意'  ELSE ''END satisfactiondegreeName,
 		 a.equipments,
 		 a.workcomment,
 		 a.abnorname,
@@ -423,6 +426,7 @@
 		f.username cmusername
 		FROM
 			daily a
+		LEFT JOIN user m on a.uid=m.uid
 		LEFT JOIN project b ON a.pid = b.pid
 		LEFT JOIN thumb c on a.did=c.tdid
 		LEFT JOIN user d on c.tuid= d.uid
@@ -442,6 +446,7 @@
 				select
 						a.did,
 						a.uid,
+						m.upic udpic,
 						a.username,
 						a.uposition,
 						a.utelphone,
@@ -478,7 +483,9 @@
 					e.cmuid,
 					f.upic cmupic,
 					f.username cmusername
-					 from daily a LEFT JOIN project b ON a.pid = b.pid
+					 from daily a 
+					LEFT JOIN user m on a.uid=m.uid
+					LEFT JOIN project b ON a.pid = b.pid
 					LEFT JOIN thumb c on a.did=c.tdid
 					LEFT JOIN user d on c.tuid= d.uid
 					LEFT JOIN comment e on a.did=e.cmdid
@@ -519,7 +526,7 @@
 				 a.effectivework,
 				 CASE WHEN a.effectivework = 1 THEN '小于2小时' WHEN a.effectivework = 2 THEN '2-4小时' WHEN a.effectivework = 3 THEN '4-6小时' WHEN a.effectivework = 4 THEN '6-8小时' ELSE '大于8小时' END effectiveworkName,
 				 a.satisfactiondegree,
-				 CASE WHEN a.satisfactiondegree = 1 THEN '很不满意' WHEN a.satisfactiondegree = 2 THEN	'不太满意' WHEN a.satisfactiondegree = 3 THEN	'满意' WHEN a.satisfactiondegree = 4 THEN	'比较满意'ELSE '非常满意'END satisfactiondegreeName,
+				 CASE WHEN a.satisfactiondegree = 1 THEN '很不满意' WHEN a.satisfactiondegree = 2 THEN	'不太满意' WHEN a.satisfactiondegree = 3 THEN	'满意' WHEN a.satisfactiondegree = 4 THEN	'比较满意' WHEN a.satisfactiondegree = 5 THEN '非常满意' ELSE ''END satisfactiondegreeName,
 				 a.equipments,
 				 a.workcomment,
 				 a.abnorname,
@@ -534,10 +541,12 @@
 				 a.creattime,
 				 a.creatMouth,
 				 b.pname,
-				 b.weixin
+				 b.weixin,
+				 c.upic
 				FROM
 					daily a
 				LEFT JOIN project b ON a.pid = b.pid 
+				LEFT JOIN user c on a.uid=c.uid
 				<where>
 					<if test="dtime!=null and dtime!=''">
 						and a.dtime	=#{dtime} 
@@ -655,7 +664,7 @@
 				 a.effectivework,
 				 CASE WHEN a.effectivework = 1 THEN '小于2小时' WHEN a.effectivework = 2 THEN '2-4小时' WHEN a.effectivework = 3 THEN '4-6小时' WHEN a.effectivework = 4 THEN '6-8小时' ELSE '大于8小时' END effectiveworkName,
 				 a.satisfactiondegree,
-				 CASE WHEN a.satisfactiondegree = 1 THEN '很不满意' WHEN a.satisfactiondegree = 2 THEN	'不太满意' WHEN a.satisfactiondegree = 3 THEN	'满意' WHEN a.satisfactiondegree = 4 THEN	'比较满意'ELSE '非常满意'END satisfactiondegreeName,
+				 CASE WHEN a.satisfactiondegree = 1 THEN '很不满意' WHEN a.satisfactiondegree = 2 THEN	'不太满意' WHEN a.satisfactiondegree = 3 THEN	'满意' WHEN a.satisfactiondegree = 4 THEN	'比较满意' WHEN a.satisfactiondegree = 5 THEN '非常满意'  ELSE ''END satisfactiondegreeName,
 				 a.equipments,
 				 a.workcomment,
 				 a.abnorname,
@@ -690,4 +699,19 @@
 				LEFT JOIN comment e on a.did=e.cmdid
 				LEFT JOIN user f on e.cmuid=f.uid where a.did = #{did}  order by a.creattime desc ,c.creattime desc,e.creattime desc
    	</select>
+   	
+   	<!-- 删除日报 -->
+   	<delete id="deleteDailyByDid" parameterType="int">
+   		delete from daily where did=#{did}
+   	</delete>
+   	
+   	<!-- 删除评论 -->
+   	<delete id="deleteCommentByDid" parameterType="int">
+   		delete from comment where cmdid=#{did}
+   	</delete>
+   	
+   	<!-- 删除点赞 -->
+   	<delete id="deleteThumbByDid" parameterType="int">
+   		delete from thumb where tdid=#{did}
+   	</delete>
 </mapper>

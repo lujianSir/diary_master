@@ -46,4 +46,7 @@ public interface DailyService {
 	// 分享日报
 	public Daily queryDailyByDidAndUid(int did, int uid);
 
+	// 通过日报ID删除日报
+	public int deleteDailyByDid(int did);
+
 }

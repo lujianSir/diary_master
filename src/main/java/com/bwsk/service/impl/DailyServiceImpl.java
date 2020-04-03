@@ -173,4 +173,12 @@ public class DailyServiceImpl implements DailyService {
 		return dailyMapper.queryDailyByDidAndUid(did, uid);
 	}
 
+	@Override
+	public int deleteDailyByDid(int did) {
+		// TODO Auto-generated method stub
+		dailyMapper.deleteCommentByDid(did);
+		dailyMapper.deleteThumbByDid(did);
+		return dailyMapper.deleteDailyByDid(did);
+	}
+
 }

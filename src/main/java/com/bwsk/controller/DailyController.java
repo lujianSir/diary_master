@@ -90,6 +90,13 @@ public class DailyController {
 			}
 		}
 		List<EveryDay> list = dailyService.queryEveryDay(daily, dtimes);
+		for (int i = 0; i < list.size(); i++) {
+			List<Daily> dailys = list.get(i).getDailyList();
+			for (int j = 0; j < dailys.size(); j++) {
+				Daily dai = dailys.get(j);
+				dai = updateDicsAndDvoideos(dai);
+			}
+		}
 		return Result.success(list);
 	}
 
@@ -102,6 +109,13 @@ public class DailyController {
 	@RequestMapping("/queryProject")
 	public Result<?> queryProject(Daily daily) {
 		List<ProjectInfo> list = dailyService.queryProject(daily);
+		for (int i = 0; i < list.size(); i++) {
+			List<Daily> dailys = list.get(i).getDailyList();
+			for (int j = 0; j < dailys.size(); j++) {
+				Daily dai = dailys.get(j);
+				dai = updateDicsAndDvoideos(dai);
+			}
+		}
 		return Result.success(list);
 	}
 
@@ -126,6 +140,10 @@ public class DailyController {
 	@RequestMapping("/queryDailyThumb")
 	public Result<?> queryDailyThumb(Daily daily) {
 		List<Daily> list = dailyService.queryDailyThumb(daily);
+		for (int i = 0; i < list.size(); i++) {
+			Daily dai = list.get(i);
+			dai = updateDicsAndDvoideos(dai);
+		}
 		return Result.success(list);
 	}
 
@@ -199,31 +217,8 @@ public class DailyController {
 		for (int i = 0; i < list.size(); i++) {
 			List<Daily> dailys = list.get(i).getDailyList();
 			for (int j = 0; j < dailys.size(); j++) {
-				List<String> list1 = new ArrayList<String>();
-				String dpic = dailys.get(j).getDpic();
-				dpic = StringUtils.strip(dpic, "[]");
-				if (dpic != null && !dpic.equals("")) {
-					String[] dpics = dpic.split(",");
-					for (int m = 0; m < dpics.length; m++) {
-						list1.add(dpics[m].replace("\"", ""));
-					}
-					dailys.get(j).setDpics(list1);
-				}
-
-				List<Map<String, Object>> list2 = new ArrayList<Map<String, Object>>();
-				String dvoideo = dailys.get(j).getDvoideo();
-				JSONArray jsonArray = JSONArray.parseArray(new String(dvoideo));
-				for (int n = 0; n < jsonArray.size(); n++) {
-					Map<String, Object> m = new HashMap<String, Object>();
-					JSONObject o = (JSONObject) jsonArray.get(n);
-					Map<String, Object> map = o;
-					for (Entry<String, Object> entry : map.entrySet()) {
-						m.put(entry.getKey(), entry.getValue());
-					}
-					list2.add(m);
-				}
-
-				dailys.get(j).setDvoideos(list2);
+				Daily dai = dailys.get(j);
+				dai = updateDicsAndDvoideos(dai);
 			}
 		}
 		return Result.success(list);
@@ -239,6 +234,28 @@ public class DailyController {
 	@RequestMapping("/queryDailyByDidAndUid")
 	public Result<?> queryDailyByDidAndUid(int did, int uid) {
 		Daily daily = dailyService.queryDailyByDidAndUid(did, uid);
+		daily = updateDicsAndDvoideos(daily);
+		return Result.success(daily);
+	}
+
+	/**
+	 * 删除日报
+	 * 
+	 * @param did
+	 * @return
+	 */
+	@RequestMapping("/deleteDailyByDid")
+	public Result<?> deleteDailyByDid(int did) {
+		int row = dailyService.deleteDailyByDid(did);
+		return Result.success(row);
+	}
+
+	/**
+	 * 修改状态
+	 * 
+	 * @return
+	 */
+	public Daily updateDicsAndDvoideos(Daily daily) {
 		List<String> list1 = new ArrayList<String>();
 		String dpic = daily.getDpic();
 		dpic = StringUtils.strip(dpic, "[]");
@@ -249,7 +266,35 @@ public class DailyController {
 			}
 			daily.setDpics(list1);
 		}
-		return Result.success(daily);
-	}
 
+		List<Map<String, Object>> list2 = new ArrayList<Map<String, Object>>();
+		String dvoideo = daily.getDvoideo();
+		JSONArray jsonArray = JSONArray.parseArray(new String(dvoideo));
+		for (int n = 0; n < jsonArray.size(); n++) {
+			Map<String, Object> m = new HashMap<String, Object>();
+			JSONObject o = (JSONObject) jsonArray.get(n);
+			Map<String, Object> map = o;
+			for (Entry<String, Object> entry : map.entrySet()) {
+				m.put(entry.getKey(), entry.getValue());
+			}
+			list2.add(m);
+		}
+		daily.setDvoideos(list2);
+
+		List<Map<String, Object>> list3 = new ArrayList<Map<String, Object>>();
+		String equipments = daily.getEquipments();
+		JSONArray jsonArrayequipment = JSONArray.parseArray(new String(equipments));
+		for (int p = 0; p < jsonArrayequipment.size(); p++) {
+			Map<String, Object> m = new HashMap<String, Object>();
+			JSONObject o = (JSONObject) jsonArrayequipment.get(p);
+			Map<String, Object> map = o;
+			for (Entry<String, Object> entry : map.entrySet()) {
+				m.put(entry.getKey(), entry.getValue());
+			}
+			list3.add(m);
+		}
+		daily.setListequipments(list3);
+
+		return daily;
+	}
 }

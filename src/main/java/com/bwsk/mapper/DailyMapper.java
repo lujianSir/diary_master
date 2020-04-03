@@ -59,4 +59,12 @@ public interface DailyMapper {
 	// 分享日报
 	public Daily queryDailyByDidAndUid(int did, int uid);
 
+	// 通过日报ID删除日报
+	public int deleteDailyByDid(int did);
+
+	// 通过日报ID删除评论
+	public void deleteCommentByDid(int did);
+
+	// 通过日报ID删除点赞
+	public void deleteThumbByDid(int did);
 }
