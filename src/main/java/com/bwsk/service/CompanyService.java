@@ -12,4 +12,7 @@ public interface CompanyService {
 	// 添加或者修改公司信息
 	public int insertOrUpdateCompany(Company company);
 
+	// 通过企业的ID删除企业
+	public int deleteCompanyByCid(int cid);
+
 }

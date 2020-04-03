@@ -88,4 +88,8 @@
    			  order by a.creattime desc
    </select>
  
+ 	<!-- 通过ID删除 -->
+ 	<delete id="deleteCompanyByCid" parameterType="int">
+ 		delete from company where cid=#{cid}
+ 	</delete>
 </mapper>
